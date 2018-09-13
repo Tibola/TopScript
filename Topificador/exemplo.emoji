@@ -1,0 +1,4 @@
+
+if "batata" == "batata" {
+  print("batata")
+}
