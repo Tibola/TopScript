@@ -3,6 +3,8 @@ import argparse
 import re
 
 def topficador(codigo):
+  codigo = re.sub(r"\btop\b", "🔝", codigo)
+  codigo = re.sub(r"\bend\b", "🔚", codigo)
   codigo = re.sub(r"\bfor\b", "🔁", codigo)
   codigo = re.sub(r"\bwhile\b", "🔄", codigo)
   codigo = re.sub(r"\bif\b", "🤔", codigo)
@@ -32,7 +34,6 @@ def topficador(codigo):
   codigo = re.sub(r"=", "✍️", codigo)
   codigo = re.sub(r"\bimport\b", "🛬", codigo)
   codigo = re.sub(r"\bexport\b", "🛫" , codigo)
-  codigo = re.sub(r"!=", "❗", codigo)
 
   return codigo
 
