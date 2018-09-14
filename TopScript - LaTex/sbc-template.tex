@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+\usepackage{graphicx,url}
+%\usepackage[brazil]{babel}  
+\usepackage[latin1]{inputenc}
+
+\sloppy
+
+\title{TopScript}
+
+\author{Vinicios Henrique Wentz\inst{1}, Rafael Henrique Tibola\inst{1}, Felipe Divensi\inst{1}}
+
+\address{Universidade Tecnologica Federal do Paraná (UTFPR) \\ 
+  Av. Brasil, 4232 - Independência, Medianeira - PR, 85884-000 
+  \email{\{vinicioswentz, tibola, felipee\}@alunos.utfpr.edu.br}}
+
+\begin{document} 
+\maketitle
+
+\begin{abstract}
+aaaa
+\end{abstract}
+     
+\begin{resumo} 
+aaa
+\end{resumo}
+
+\section{Compilador}
+\label{section:compiladores}
+
+Linguagens de programação são notações para a descrição de computações para pessoas e maquinas. Hoje, no mundo em que vivemos as pessoas são totalmente dependente das linguagens de programação, pois, todos os software os quais os computadores rodam são escritos em alguma linguagem de programação. Mas para que isso seja possível, precisa-se de alguma forma que os computadores entendam essas linguagens de programação, software que faz está tradução é chamado de compilador \cite{aho2007}.
+
+Pode-se definir compiladores como programas que fazem a tradução de outros programas os quais foram escritos em alguma linguagem	 e os preparam para serem executados. Para fazer está transformação o compilador deve entender \cite{cooper2012}.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagens/compiler}
+	\caption[Compilador]{Compilador.}
+\end{figure}
+
+A estrutura de um compilador é compostas por duas partes a parte de analise e a de síntese. A fase de analise quebra o programa fonte em peças constituintes é impões uma estrutura gramatical. Essa estrutura é utilizada para a criação da representação intermediária do programa fonte. Caso a fase de analise detecte que o programa está sintaticamente mal formado ou não está semanticamente claro, essa fase deve prover informações informativas para que o usuário tome as devidas providencias. A analise também coleta algumas informações importante e as armazenas em uma estrutura chamada tabela de símbolo, a qual é passada com a representação intermediária para a analise sintática. A analise sintática é responsável pela construção do programa alvo desejado. Ela usa a representação intermediária e a tabela se símbolo para tal processo \cite{aho2007}. Essas fases são chamadas de \textit{front end} e \textit{back end} respectivamente. A fase será abordada com maior detalhes nas Seções~\ref{section:lexica}, \ref{section:semantica} e \ref{section:sintatica} e a síntese na Seção.
+
+\section{Analise Léxica}
+\label{section:lexica}
+
+\section{Analise Sintática}
+\label{section:sintatica}
+
+\section{Analise Semântica}
+\label{section:semantica}
+
+\section{Documentação}
+\label{section:documentacao}
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}

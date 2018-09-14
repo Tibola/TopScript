@@ -1,0 +1,13 @@
+\begin{thebibliography}{}
+
+\bibitem[Alfred V.~Aho 2007]{aho2007}
+Alfred V.~Aho, Monica S.~Lam, R. S. J. D.~U. (2007).
+\newblock {\em Compilers: principles, techniques, and tools}.
+\newblock Pearson/Addison Wesley, 2 edition.
+
+\bibitem[K.~Cooper 2012]{cooper2012}
+K.~Cooper, L.~T. (2012).
+\newblock {\em Engineering a Compiler}.
+\newblock Morgan Kaufman, 2 edition.
+
+\end{thebibliography}
