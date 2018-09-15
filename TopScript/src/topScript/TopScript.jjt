@@ -14,6 +14,7 @@ public class TopScript
 {
   public static void main(String args [])
   {
+    System.out.println("🔝");
     System.out.println("Reading from standard input...");
     System.out.println("Entra o programa top:");
     new TopScript(System.in);
@@ -26,7 +27,7 @@ public class TopScript
     }
     catch (Exception e)
     {
-      System.out.println("Oops.");
+      System.out.println("\nOops.");
       System.out.println(e.getMessage());
     }
   }

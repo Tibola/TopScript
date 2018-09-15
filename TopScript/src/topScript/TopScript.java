@@ -4,6 +4,7 @@ package topScript;
 public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScriptConstants {/*@bgen(jjtree)*/
   protected static JJTTopScriptState jjtree = new JJTTopScriptState();public static void main(String args [])
   {
+    System.out.println("\ud83d\udd1d");
     System.out.println("Reading from standard input...");
     System.out.println("Entra o programa top:");
     new TopScript(System.in);
@@ -16,7 +17,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     }
     catch (Exception e)
     {
-      System.out.println("Oops.");
+      System.out.println("\u005cnOops.");
       System.out.println(e.getMessage());
     }
   }
@@ -1747,11 +1748,6 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     finally { jj_save(55, xla); }
   }
 
-  static private boolean jj_3R_33() {
-    if (jj_scan_token(MENOS_MENOS)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_13() {
     if (jj_scan_token(BOOL_TRUE)) return true;
     return false;
@@ -2450,6 +2446,11 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
 
   static private boolean jj_3R_12() {
     if (jj_scan_token(BOOL_FALSE)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_33() {
+    if (jj_scan_token(MENOS_MENOS)) return true;
     return false;
   }
 
