@@ -2,8 +2,7 @@
 package topScript;
 
 public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScriptConstants {/*@bgen(jjtree)*/
-  protected static JJTTopScriptState jjtree = new JJTTopScriptState();
-  public static void main(String args [])
+  protected static JJTTopScriptState jjtree = new JJTTopScriptState();public static void main(String args [])
   {
     System.out.println("Reading from standard input...");
     System.out.println("Entra o programa top:");
@@ -279,6 +278,20 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
                           if (jjtc000) {
                             jjtree.closeNodeScope(jjtn000, true);
                           }
+    }
+  }
+
+  static final public void separador() throws ParseException {
+                    /*@bgen(jjtree) separador */
+  SimpleNode jjtn000 = new SimpleNode(JJTSEPARADOR);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      jj_consume_token(SEPARADOR);
+    } finally {
+                        if (jjtc000) {
+                          jjtree.closeNodeScope(jjtn000, true);
+                        }
     }
   }
 
@@ -689,6 +702,9 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
+      abreParenteses();
+      declaraVariavel();
+      fechaParenteses();
       bloco();
     } catch (Throwable jjte000) {
     if (jjtc000) {
@@ -730,10 +746,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
       case BOOL_TRUE:
         boolTrue();
         break;
-      case TIPO_NUMERO:
-      case TIPO_TEXTO:
-      case TIPO_BOOL:
-      case TIPO_FUNCAO:
+      case ABRE_PARENTESES:
         funcao();
         break;
       default:
@@ -948,16 +961,148 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     }
   }
 
-  static final public void top() throws ParseException {
- /*@bgen(jjtree) top */
-  SimpleNode jjtn000 = new SimpleNode(JJTTOP);
+  static final public void operadorLogico() throws ParseException {
+ /*@bgen(jjtree) operadorLogico */
+  SimpleNode jjtn000 = new SimpleNode(JJTOPERADORLOGICO);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      inicioprog();
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OP_AND:
+        opAnd();
+        break;
+      case OP_OR:
+        opOr();
+        break;
+      case OP_DIF:
+        opDif();
+        break;
+      case OP_EQ:
+        opEq();
+        break;
+      case OP_LT:
+        opLt();
+        break;
+      case OP_GT:
+        opGt();
+        break;
+      default:
+        jj_la1[11] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
+    } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    }
+  }
+
+  static final public void expressaoLogica() throws ParseException {
+ /*@bgen(jjtree) expressaoLogica */
+  SimpleNode jjtn000 = new SimpleNode(JJTEXPRESSAOLOGICA);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case BOOL_FALSE:
+        boolFalse();
+        break;
+      case BOOL_TRUE:
+        boolTrue();
+        break;
+      case ABRE_PARENTESES:
+      case ASPA:
+      case LETRA_MINUSCULA:
+      case NUMERO:
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case LETRA_MINUSCULA:
+          idNome();
+          break;
+        case BOOL_TRUE:
+        case BOOL_FALSE:
+        case ABRE_PARENTESES:
+        case ASPA:
+        case NUMERO:
+          constante();
+          break;
+        default:
+          jj_la1[12] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+        operadorLogico();
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case LETRA_MINUSCULA:
+          idNome();
+          break;
+        case BOOL_TRUE:
+        case BOOL_FALSE:
+        case ABRE_PARENTESES:
+        case ASPA:
+        case NUMERO:
+          constante();
+          break;
+        default:
+          jj_la1[13] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+        break;
+      default:
+        jj_la1[14] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
+    } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    }
+  }
+
+  static final public void condicional() throws ParseException {
+ /*@bgen(jjtree) condicional */
+  SimpleNode jjtn000 = new SimpleNode(JJTCONDICIONAL);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      se();
+      expressaoLogica();
+      abreChaves();
       label_5:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case SE:
+        case PARA:
         case TIPO_NUMERO:
         case TIPO_TEXTO:
         case TIPO_BOOL:
@@ -965,8 +1110,133 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
           ;
           break;
         default:
-          jj_la1[11] = jj_gen;
+          jj_la1[15] = jj_gen;
           break label_5;
+        }
+        bloco();
+      }
+      fechaChaves();
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case SENAO:
+        senao();
+        abreChaves();
+        label_6:
+        while (true) {
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case SE:
+          case PARA:
+          case TIPO_NUMERO:
+          case TIPO_TEXTO:
+          case TIPO_BOOL:
+          case TIPO_FUNCAO:
+            ;
+            break;
+          default:
+            jj_la1[16] = jj_gen;
+            break label_6;
+          }
+          bloco();
+        }
+        fechaChaves();
+        break;
+      default:
+        jj_la1[17] = jj_gen;
+        ;
+      }
+    } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
+    } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    }
+  }
+
+  static final public void repeticao() throws ParseException {
+ /*@bgen(jjtree) repeticao */
+  SimpleNode jjtn000 = new SimpleNode(JJTREPETICAO);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      para();
+      declaraVariavel();
+      separador();
+      expressaoLogica();
+      separador();
+      bloco();
+      abreChaves();
+      label_7:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case SE:
+        case PARA:
+        case TIPO_NUMERO:
+        case TIPO_TEXTO:
+        case TIPO_BOOL:
+        case TIPO_FUNCAO:
+          ;
+          break;
+        default:
+          jj_la1[18] = jj_gen;
+          break label_7;
+        }
+        bloco();
+      }
+      fechaChaves();
+    } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
+    } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    }
+  }
+
+  static final public void top() throws ParseException {
+ /*@bgen(jjtree) top */
+  SimpleNode jjtn000 = new SimpleNode(JJTTOP);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      inicioprog();
+      label_8:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case SE:
+        case PARA:
+        case TIPO_NUMERO:
+        case TIPO_TEXTO:
+        case TIPO_BOOL:
+        case TIPO_FUNCAO:
+          ;
+          break;
+        default:
+          jj_la1[19] = jj_gen;
+          break label_8;
         }
         bloco();
       }
@@ -998,7 +1268,24 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      declaraVariavel();
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case TIPO_NUMERO:
+      case TIPO_TEXTO:
+      case TIPO_BOOL:
+      case TIPO_FUNCAO:
+        declaraVariavel();
+        break;
+      case SE:
+        condicional();
+        break;
+      case PARA:
+        repeticao();
+        break;
+      default:
+        jj_la1[20] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
     } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -1030,7 +1317,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[12];
+  static final private int[] jj_la1 = new int[21];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -1038,10 +1325,10 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x0,0x0,0x0,0x0,0x7c030000,0x78000000,0x0,0x0,0x8000,0x1000000,0x8000,0x78000000,};
+      jj_la1_0 = new int[] {0x0,0x0,0x0,0x0,0x8230000,0xf0000000,0x0,0x0,0x8000,0x2000000,0x8000,0x0,0x8230000,0x8230000,0x8230000,0xf0000a00,0xf0000a00,0x400,0xf0000a00,0xf0000a00,0xf0000a00,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0xc00,0xc00,0x2c00,0x2c00,0x2000,0x0,0x2c00,0x2c00,0x0,0x0,0x0,0x0,};
+      jj_la1_1 = new int[] {0x1800,0x1800,0x5800,0x5800,0x4000,0x0,0x5800,0x5800,0x0,0x0,0x0,0x7e0,0x5000,0x5000,0x5000,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
 
   /** Constructor with InputStream. */
@@ -1062,7 +1349,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -1077,7 +1364,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -1094,7 +1381,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -1105,7 +1392,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -1121,7 +1408,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -1131,7 +1418,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -1182,12 +1469,12 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[46];
+    boolean[] la1tokens = new boolean[47];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 21; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -1199,7 +1486,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants, TopScr
         }
       }
     }
-    for (int i = 0; i < 46; i++) {
+    for (int i = 0; i < 47; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

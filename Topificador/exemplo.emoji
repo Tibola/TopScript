@@ -2,4 +2,14 @@ top
   int batata = 5, arroz = 4
   string feijao = 'preto', vazio = ''
   boolean doisGeneros = true
+
+  if batata != arroz {
+  }
+
+  if batata and arroz {
+  } else {
+  }
+
+  for int i = 0; i < 5; int a {
+  }
 end

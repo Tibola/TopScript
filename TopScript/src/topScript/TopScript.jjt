@@ -11,7 +11,6 @@ package topScript;
 
 public class TopScript
 {
-
   public static void main(String args [])
   {
     System.out.println("Reading from standard input...");
@@ -74,6 +73,7 @@ TOKEN :
 {
   < ABRE_CHAVES     : "👉"  >
 | < FECHA_CHAVES    : "👈"  >
+| < SEPARADOR       : "👌"  >
 | < ABRE_PARENTESES : "("   >
 | < FECHA_PARENTESES: ")"   >
 | < ABRE_COLCHETES  : "["   >
@@ -90,7 +90,7 @@ TOKEN :
   < TIPO_NUMERO     : "#️⃣"  >
 | < TIPO_TEXTO      : "🔡"  >
 | < TIPO_BOOL       : "🚻"  >
-| < TIPO_FUNCAO     : "▶️"  >
+| < TIPO_FUNCAO     : "▶️"   >
 }
 
 // Operadores Matematicos
@@ -161,6 +161,7 @@ void boolTrue (): {}{< BOOL_TRUE >}
 void boolFalse (): {}{< BOOL_FALSE >}
 void abreChaves (): {}{< ABRE_CHAVES >}
 void fechaChaves (): {}{< FECHA_CHAVES >}
+void separador (): {}{< SEPARADOR >}
 void abreParenteses (): {}{< ABRE_PARENTESES >}
 void fechaParenteses (): {}{< FECHA_PARENTESES >}
 void abreColchetes (): {}{< ABRE_COLCHETES >}
@@ -205,7 +206,8 @@ void string() :
 void funcao () :
 {}
 {
-  //TODO: isso ae
+  abreParenteses() declaraVariavel() fechaParenteses()
+  
   bloco()
 }
 
@@ -247,6 +249,41 @@ void declaraVariavel() :
   (virgula() idNome() (atribuicao())?)*
 }
 
+void operadorLogico() :
+{}
+{
+  opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()
+}
+
+void expressaoLogica () :
+{}
+{
+  boolFalse() | boolTrue() | (idNome() | constante()) operadorLogico() (idNome() | constante())
+}
+
+void condicional() :
+{}
+{
+  se() expressaoLogica() 
+  abreChaves() 
+    (bloco())* 
+  fechaChaves()
+  (senao() 
+    abreChaves() 
+    (bloco())* 
+    fechaChaves()
+  )?
+}
+
+void repeticao () :
+{}
+{
+  para() declaraVariavel() separador() expressaoLogica() separador() bloco() 
+  abreChaves()
+    (bloco())*
+  fechaChaves()
+}
+
 void top() :
 {}
 {
@@ -258,5 +295,9 @@ void top() :
 void bloco():
 {}
 {
-  declaraVariavel()
+  (
+    declaraVariavel()
+    | condicional()
+    | repeticao()
+  )
 }
