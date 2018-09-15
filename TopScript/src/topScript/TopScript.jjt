@@ -63,8 +63,8 @@ TOKEN :
 | < PRINT           : "🤬"  >
 | < RETURN          : "↪️"  >
 | < ATRIBUI         : "✍️"  >
-| < TRUE            : "👍"  >
-| < FALSE           : "👎"  >
+| < BOOL_TRUE       : "👍"  >
+| < BOOL_FALSE      : "👎"  >
 }
 
 // Delimitadores
@@ -112,10 +112,274 @@ TOKEN:
 | < OP_DIF          : "❗" >
 }
 
+// Caracteres
+TOKEN:
+{
+  < LETRA_MAIUSCULA : [ "A"-"Z" ] >
+| < LETRA_MINUSCULA : [ "a"-"z" ] >
+| < #DIGITO | ([ "0"-"9" ])+ >
+}
+
+// Sentencas 
+TOKEN:
+{
+  < NUMERO          : 
+    < DIGITO >
+  | < DIGITO > "." < DIGITO >>
+| < TEXTO           : 
+      ( < LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
+}
+
 SimpleNode Start() :
 {}
 {
+  top();
   {
     return jjtThis;
   }
 }
+
+/**
+ * HC SVNT DRACONES
+ * Não terminais
+ */
+
+void letraMinuscula () :
+{}
+{
+  < LETRA_MINUSCULA >
+}
+
+void letraMaiuscula () :
+{}
+{
+  < LETRA_MAIUSCULA >
+}
+
+void numero () :
+{}
+{
+  < NUMERO >
+}
+
+void texto ():
+{}
+{
+  < TEXTO >
+}
+
+
+void inicioprog ():
+{}
+{
+  < INICIOPROG >
+}
+
+void fimprog ():
+{}
+{
+  < FIMPROG >
+}
+
+void se ():
+{}
+{
+  < SE >
+}
+
+void senao ():
+{}
+{
+  < SENAO >
+}
+
+void for ():
+{}
+{
+  < FOR >
+}
+
+void while ():
+{}
+{
+  < WHILE >
+}
+
+void print ():
+{}
+{
+  < PRINT >
+}
+
+void return ():
+{}
+{
+  < RETURN >
+}
+
+void atribui ():
+{}
+{
+  < ATRIBUI >
+}
+
+void boolTrue ():
+{}
+{
+  < BOOL_TRUE >
+}
+
+void boolFalse ():
+{}
+{
+  < BOOL_FALSE >
+}
+
+void abreChaves ():
+{}
+{
+  < ABRE_CHAVES >
+}
+
+void fechaChaves ():
+{}
+{
+  < FECHA_CHAVES >
+}
+
+void abreParenteses ():
+{}
+{
+  < ABRE_PARENTESES >
+}
+
+void fechaParenteses ():
+{}
+{
+  < FECHA_PARENTESES >
+}
+
+void abreColchetes ():
+{}
+{
+  < ABRE_COLCHETES >
+}
+
+void fechaColchetes ():
+{}
+{
+  < FECHA_COLCHETES >
+}
+
+void virgula ():
+{}
+{
+  < VIRGULA >
+}
+
+void ponto ():
+{}
+{
+  < PONTO >
+}
+
+void aspa ():
+{}
+{
+  < ASPA >
+}
+
+void tipoNumero ():
+{}
+{
+  < TIPO_NUMERO >
+}
+
+void tipoTexto ():
+{}
+{
+  < TIPO_TEXTO >
+}
+
+void tipoBool ():
+{}
+{
+  < TIPO_BOOL >
+}
+
+void tipoFuncao ():
+{}
+{
+  < TIPO_FUNCAO >
+}
+
+void opSum ():
+{}
+{
+  < OP_SUM >
+}
+
+void opSub ():
+{}
+{
+  < OPSUB >
+}
+
+void opMul ():
+{}
+{
+  < OP_MUL >
+}
+
+void opDiv ():
+{}
+{
+  < OP_DIV >
+}
+
+void opMod ():
+{}
+{
+  < OP_MOD >
+}
+
+void opAnd ():
+{}
+{
+  < OP_AND >
+}
+
+void opOr ():
+{}
+{
+  < OP_OR >
+}
+
+void opGt ():
+{}
+{
+  < OP_GT >
+}
+
+void opLt ():
+{}
+{
+  < OP_LT >
+}
+
+void opEq ():
+{}
+{
+  < OP_EQ >
+}
+
+void opDif ():
+{}
+{
+  < OP_DIF >
+}
+
+
+// Fim das Declaracoes Redundantes
+
+
