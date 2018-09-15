@@ -51,19 +51,70 @@ SKIP :
     "/" >
 }
 
-// DELIMITADORES
+// Palavras reservadas
 TOKEN :
 {
-  < INICIOPROG    : "🔝"  >
-| < INICIOBLOCO   : "👉"  >
-| < FIMBLOCO      : "👈"  >
-| < FIMPROG       : "🔚"  >
+  < INICIOPROG      : "🔝"  >
+| < FIMPROG         : "🔚"  >
+| < SE              : "🤔"  >
+| < SENAO           : "🙄"  >
+| < FOR             : "🔁"  >
+| < WHILE           : "🔄"  >
+| < PRINT           : "🤬"  >
+| < RETURN          : "↪️"  >
+| < ATRIBUI         : "✍️"  >
+| < TRUE            : "👍"  >
+| < FALSE           : "👎"  >
+}
+
+// Delimitadores
+TOKEN :
+{
+  < ABRE_CHAVES     : "👉"  >
+| < FECHA_CHAVES    : "👈"  >
+| < ABRE_PARENTESES : "("   >
+| < FECHA_PARENTESES: ")"   >
+| < ABRE_COLCHETES  : "["   >
+| < FECHA_COLCHETES : "]"   >
+| < VIRGULA         : ","   >
+| < PONTO           : "."   >
+| < ASPA            : "'"   >
+
+}
+
+// Tipos de Dados
+TOKEN :
+{
+  < TIPO_NUMERO     : "#️⃣"  >
+| < TIPO_TEXTO      : "🔡"  >
+| < TIPO_BOOL       : "🚻"  >
+| < TIPO_FUNCAO     : "▶️"  >
+}
+
+// Operadores Matematicos
+TOKEN: 
+{
+  < OP_SUM          : "+" >
+| < OP_SUB          : "-" >
+| < OP_MUL          : "*" >
+| < OP_DIV          : "/" >
+| < OP_MOD          : "%" >
+}
+
+// Operadores Lógicos
+TOKEN:
+{
+  < OP_AND          : "🅰️" >
+| < OP_OR           : "🅾️" >
+| < OP_GT           : ">" >
+| < OP_LT           : "<" >
+| < OP_EQ           : "🤝" >
+| < OP_DIF          : "❗" >
 }
 
 SimpleNode Start() :
 {}
 {
-  
   {
     return jjtThis;
   }

@@ -12,11 +12,10 @@ def topficador(codigo):
   codigo = re.sub(r"\bint\b", "#️⃣", codigo)
   codigo = re.sub(r"\bstring\b", "🔡", codigo)
   codigo = re.sub(r"\bboolean\b", "🚻", codigo)
+  codigo = re.sub(r"\bfunc\b", "▶️", codigo)
   codigo = re.sub(r"\blist\b", "📝", codigo)
   codigo = re.sub(r"{", "👉", codigo)
   codigo = re.sub(r"}", "👈", codigo)
-  codigo = re.sub(r"\[", "✒️", codigo)
-  codigo = re.sub(r"\]", "🖋", codigo)
   codigo = re.sub(r"\band\b", "🅰️", codigo)
   codigo = re.sub(r"\bor\b", "🅾️", codigo)
   codigo = re.sub(r"\bclass\b", "🧐", codigo)
@@ -25,7 +24,7 @@ def topficador(codigo):
   codigo = re.sub(r"\bprivate\b", "🚧", codigo)
   codigo = re.sub(r"\bprint\b", "🤬", codigo)
   codigo = re.sub(r"\blength\b", "📏", codigo)
-  codigo = re.sub(r"==", "↔️", codigo)
+  codigo = re.sub(r"==", "🤝", codigo)
   codigo = re.sub(r"=", "✍️", codigo)
   codigo = re.sub(r"\bimport\b", "🛬", codigo)
   codigo = re.sub(r"\bexport\b", "🛫" , codigo)
@@ -33,6 +32,7 @@ def topficador(codigo):
   codigo = re.sub(r"\bfalse\b", "👎", codigo)
   codigo = re.sub(r"\btrue\b", "👍", codigo)
   codigo = re.sub(r"\bnil\b", "🤷‍", codigo)
+  codigo = re.sub(r"\breturn\b", "↪️", codigo)
 
   return codigo
 
