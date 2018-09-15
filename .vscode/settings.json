@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.jj": "java",
+        "*.jjt": "java"
+    },
+    "python.pythonPath": "/anaconda3/bin/python"
+}

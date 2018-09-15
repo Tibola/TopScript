@@ -11,15 +11,17 @@ package topScript;
 
 public class TopScript
 {
+
   public static void main(String args [])
   {
     System.out.println("Reading from standard input...");
-    System.out.print("Enter an expression like \"1+(2+3)*var;\" :");
+    System.out.println("Entra o programa top:");
     new TopScript(System.in);
     try
     {
       SimpleNode n = TopScript.Start();
-      n.dump("-- >");
+      n.dump("-- > ");
+
       System.out.println("Vlw.");
     }
     catch (Exception e)
@@ -58,10 +60,10 @@ TOKEN :
 | < FIMPROG         : "🔚"  >
 | < SE              : "🤔"  >
 | < SENAO           : "🙄"  >
-| < FOR             : "🔁"  >
-| < WHILE           : "🔄"  >
+| < PARA            : "🔁"  >
+| < ENQUANTO        : "🔄"  >
 | < PRINT           : "🤬"  >
-| < RETURN          : "↪️"  >
+| < RETORNO         : "↪️"  >
 | < ATRIBUI         : "✍️"  >
 | < BOOL_TRUE       : "👍"  >
 | < BOOL_FALSE      : "👎"  >
@@ -117,7 +119,7 @@ TOKEN:
 {
   < LETRA_MAIUSCULA : [ "A"-"Z" ] >
 | < LETRA_MINUSCULA : [ "a"-"z" ] >
-| < #DIGITO | ([ "0"-"9" ])+ >
+| < #DIGITO : ([ "0"-"9" ])+ >
 }
 
 // Sentencas 
@@ -126,14 +128,12 @@ TOKEN:
   < NUMERO          : 
     < DIGITO >
   | < DIGITO > "." < DIGITO >>
-| < TEXTO           : 
-      ( < LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
 }
 
 SimpleNode Start() :
 {}
 {
-  top();
+  top()
   {
     return jjtThis;
   }
@@ -144,242 +144,119 @@ SimpleNode Start() :
  * Não terminais
  */
 
-void letraMinuscula () :
-{}
-{
-  < LETRA_MINUSCULA >
-}
+void letraMinuscula () : {}{< LETRA_MINUSCULA >}
+void letraMaiuscula () : {}{< LETRA_MAIUSCULA >}
+void numero () : {}{< NUMERO >}
 
-void letraMaiuscula () :
-{}
-{
-  < LETRA_MAIUSCULA >
-}
-
-void numero () :
-{}
-{
-  < NUMERO >
-}
-
-void texto ():
-{}
-{
-  < TEXTO >
-}
-
-
-void inicioprog ():
-{}
-{
-  < INICIOPROG >
-}
-
-void fimprog ():
-{}
-{
-  < FIMPROG >
-}
-
-void se ():
-{}
-{
-  < SE >
-}
-
-void senao ():
-{}
-{
-  < SENAO >
-}
-
-void for ():
-{}
-{
-  < FOR >
-}
-
-void while ():
-{}
-{
-  < WHILE >
-}
-
-void print ():
-{}
-{
-  < PRINT >
-}
-
-void return ():
-{}
-{
-  < RETURN >
-}
-
-void atribui ():
-{}
-{
-  < ATRIBUI >
-}
-
-void boolTrue ():
-{}
-{
-  < BOOL_TRUE >
-}
-
-void boolFalse ():
-{}
-{
-  < BOOL_FALSE >
-}
-
-void abreChaves ():
-{}
-{
-  < ABRE_CHAVES >
-}
-
-void fechaChaves ():
-{}
-{
-  < FECHA_CHAVES >
-}
-
-void abreParenteses ():
-{}
-{
-  < ABRE_PARENTESES >
-}
-
-void fechaParenteses ():
-{}
-{
-  < FECHA_PARENTESES >
-}
-
-void abreColchetes ():
-{}
-{
-  < ABRE_COLCHETES >
-}
-
-void fechaColchetes ():
-{}
-{
-  < FECHA_COLCHETES >
-}
-
-void virgula ():
-{}
-{
-  < VIRGULA >
-}
-
-void ponto ():
-{}
-{
-  < PONTO >
-}
-
-void aspa ():
-{}
-{
-  < ASPA >
-}
-
-void tipoNumero ():
-{}
-{
-  < TIPO_NUMERO >
-}
-
-void tipoTexto ():
-{}
-{
-  < TIPO_TEXTO >
-}
-
-void tipoBool ():
-{}
-{
-  < TIPO_BOOL >
-}
-
-void tipoFuncao ():
-{}
-{
-  < TIPO_FUNCAO >
-}
-
-void opSum ():
-{}
-{
-  < OP_SUM >
-}
-
-void opSub ():
-{}
-{
-  < OPSUB >
-}
-
-void opMul ():
-{}
-{
-  < OP_MUL >
-}
-
-void opDiv ():
-{}
-{
-  < OP_DIV >
-}
-
-void opMod ():
-{}
-{
-  < OP_MOD >
-}
-
-void opAnd ():
-{}
-{
-  < OP_AND >
-}
-
-void opOr ():
-{}
-{
-  < OP_OR >
-}
-
-void opGt ():
-{}
-{
-  < OP_GT >
-}
-
-void opLt ():
-{}
-{
-  < OP_LT >
-}
-
-void opEq ():
-{}
-{
-  < OP_EQ >
-}
-
-void opDif ():
-{}
-{
-  < OP_DIF >
-}
-
+void inicioprog (): {}{< INICIOPROG >}
+void fimprog (): {}{< FIMPROG >}
+void se (): {}{< SE >}
+void senao (): {}{< SENAO >}
+void para (): {}{< PARA >}
+void enquanto (): {}{< ENQUANTO >}
+void print (): {}{< PRINT >}
+void retorno (): {}{< RETORNO >}
+void atribui (): {}{< ATRIBUI >}
+void boolTrue (): {}{< BOOL_TRUE >}
+void boolFalse (): {}{< BOOL_FALSE >}
+void abreChaves (): {}{< ABRE_CHAVES >}
+void fechaChaves (): {}{< FECHA_CHAVES >}
+void abreParenteses (): {}{< ABRE_PARENTESES >}
+void fechaParenteses (): {}{< FECHA_PARENTESES >}
+void abreColchetes (): {}{< ABRE_COLCHETES >}
+void fechaColchetes (): {}{< FECHA_COLCHETES >}
+void virgula (): {}{< VIRGULA >}
+void ponto (): {}{< PONTO >}
+void aspa (): {}{< ASPA >}
+void tipoNumero (): {}{< TIPO_NUMERO >}
+void tipoTexto (): {}{< TIPO_TEXTO >}
+void tipoBool (): {}{< TIPO_BOOL >}
+void tipoFuncao (): {}{< TIPO_FUNCAO >}
+void opSum (): {}{< OP_SUM >}
+void opSub (): {}{< OP_SUB >}
+void opMul (): {}{< OP_MUL >}
+void opDiv (): {}{< OP_DIV >}
+void opMod (): {}{< OP_MOD >}
+void opAnd (): {}{< OP_AND >}
+void opOr (): {}{< OP_OR >}
+void opGt (): {}{< OP_GT >}
+void opLt (): {}{< OP_LT >}
+void opEq (): {}{< OP_EQ >}
+void opDif (): {}{< OP_DIF >}
 
 // Fim das Declaracoes Redundantes
 
+void texto () :
+{}{
+  (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
+}
 
+void string() :
+{}
+{
+  aspa()
+  (
+    texto() |
+    numero()
+  )*
+  aspa()
+}
+
+void funcao () :
+{}
+{
+  //TODO: isso ae
+  bloco()
+}
+
+void constante() :
+{}
+{
+    numero()
+  | string()
+  | boolFalse()
+  | boolTrue()
+  | funcao()
+}
+
+void idTipo() :
+{}
+{
+    tipoBool()
+  | tipoNumero()
+  | tipoFuncao()
+  | tipoTexto()
+}
+
+void idNome() :
+{}
+{
+  letraMinuscula() (texto() | numero())*
+}
+
+void atribuicao() :
+{}
+{
+  atribui() constante()
+}
+
+void declaraVariavel() :
+{}
+{
+  idTipo() idNome() (atribuicao())? 
+  (virgula() idNome() (atribuicao())?)*
+}
+
+void top() :
+{}
+{
+  inicioprog()
+  (bloco())*
+  fimprog()
+}
+
+void bloco():
+{}
+{
+  declaraVariavel()
+}

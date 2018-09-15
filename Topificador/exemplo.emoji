@@ -1,4 +1,5 @@
-
-if "batata" == "batata" {
-  print("batata")
-}
+top
+  int batata = 5, arroz = 4
+  string feijao = 'preto', vazio = ''
+  boolean doisGeneros = true
+end
