@@ -34,6 +34,8 @@ def topficador(codigo):
   codigo = re.sub(r"\bnil\b", "🤷‍", codigo)
   codigo = re.sub(r"\breturn\b", "↪️", codigo)
   codigo = re.sub(r";", "👌", codigo)
+  codigo = re.sub(r"\+\+", "⏫", codigo)
+  codigo = re.sub(r"__", "⏬", codigo)
 
   return codigo
 

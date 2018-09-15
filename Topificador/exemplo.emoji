@@ -1,15 +1,18 @@
 top
-  int batata = 5, arroz = 4
-  string feijao = 'preto', vazio = ''
-  boolean doisGeneros = true
+  string a = 'asdasd'
+  int i = 0
 
-  if batata != arroz {
+  func asd = (int b) {
+    a = 'qweqweqwe'
+    return 0
   }
 
-  if batata and arroz {
-  } else {
-  }
+  asd(5)
 
-  for int i = 0; i < 5; int a {
+  // sdasdasdasd
+  // escrevi e sai correndo
+
+  while true {
+    i++
   }
 end

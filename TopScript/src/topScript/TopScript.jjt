@@ -4,6 +4,7 @@
 options
 {
   static = true;
+  LOOKAHEAD = 10;
 }
 
 PARSER_BEGIN(TopScript)
@@ -64,6 +65,8 @@ TOKEN :
 | < PRINT           : "🤬"  >
 | < RETORNO         : "↪️"  >
 | < ATRIBUI         : "✍️"  >
+| < MAIS_MAIS       : "⏫"  >
+| < MENOS_MENOS     : "⏬"  >
 | < BOOL_TRUE       : "👍"  >
 | < BOOL_FALSE      : "👎"  >
 }
@@ -127,7 +130,9 @@ TOKEN:
 {
   < NUMERO          : 
     < DIGITO >
-  | < DIGITO > "." < DIGITO >>
+  | < DIGITO > "." < DIGITO >
+  | < OP_SUB > < DIGITO >
+  | < OP_SUB > < DIGITO > "." < DIGITO >>
 }
 
 SimpleNode Start() :
@@ -155,8 +160,9 @@ void senao (): {}{< SENAO >}
 void para (): {}{< PARA >}
 void enquanto (): {}{< ENQUANTO >}
 void print (): {}{< PRINT >}
-void retorno (): {}{< RETORNO >}
 void atribui (): {}{< ATRIBUI >}
+void maisMais (): {}{< MAIS_MAIS >}
+void menosMenos (): {}{< MENOS_MENOS >}
 void boolTrue (): {}{< BOOL_TRUE >}
 void boolFalse (): {}{< BOOL_FALSE >}
 void abreChaves (): {}{< ABRE_CHAVES >}
@@ -187,6 +193,12 @@ void opDif (): {}{< OP_DIF >}
 
 // Fim das Declaracoes Redundantes
 
+void retorno (): 
+{}
+{
+  < RETORNO > (idNome() | constante())
+}
+
 void texto () :
 {}{
   (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
@@ -207,8 +219,9 @@ void funcao () :
 {}
 {
   abreParenteses() declaraVariavel() fechaParenteses()
-  
-  bloco()
+  abreChaves()
+    bloco()
+  fechaChaves()
 }
 
 void constante() :
@@ -266,30 +279,58 @@ void condicional() :
 {
   se() expressaoLogica() 
   abreChaves() 
-    (bloco())* 
+    bloco()
   fechaChaves()
   (senao() 
     abreChaves() 
-    (bloco())* 
+      bloco()
     fechaChaves()
   )?
 }
 
-void repeticao () :
+void repeticaoPara () :
 {}
 {
   para() declaraVariavel() separador() expressaoLogica() separador() bloco() 
   abreChaves()
-    (bloco())*
+    bloco()
   fechaChaves()
+}
+
+void repeticaoEnquanto () :
+{}
+{
+  enquanto() expressaoLogica()
+  abreChaves()
+    bloco()
+  fechaChaves()
+}
+
+void executarFuncao() :
+{}
+{
+  idNome() 
+  abreParenteses() 
+    ((idNome() | constante()) (virgula() (idNome() | constante()))* )? 
+  fechaParenteses()
 }
 
 void top() :
 {}
 {
   inicioprog()
-  (bloco())*
+  bloco()
   fimprog()
+}
+
+void crementos() :
+{}
+{
+  (idNome() atribuicao())
+  | (idNome() maisMais())
+  | (idNome() menosMenos())
+  | (maisMais() idNome())
+  | (menosMenos() idNome())
 }
 
 void bloco():
@@ -298,6 +339,10 @@ void bloco():
   (
     declaraVariavel()
     | condicional()
-    | repeticao()
-  )
+    | repeticaoPara()
+    | repeticaoEnquanto()
+    | executarFuncao()
+    | crementos()
+    | retorno()
+  )*
 }
