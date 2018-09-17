@@ -44,6 +44,14 @@ A estrutura de um compilador é compostas por duas partes a parte de analise e a 
 \section{Analise Léxica}
 \label{section:lexica}
 
+A tarefa principal do analisador léxico na primeira fase da compilação é de ler o programa fonte, agrupa-los em lexemes e produzir uma sequencia de \textit{tokens} para cada lexeme no programa fonte. Muitas vezes o analisador léxico interage com a tabela de símbolos. Quando o analisador léxico processa um lexeme que pertence a um identificador ele precisa adiciona-lo na tabela de símbolos. Em alguns casos informações sobre algum identificador deve ser lido da tabela de símbolos pelo analisador lexico para determinar o \textit{token} apropriado que deverá ser passado para o \textit{parser}. \cite{aho2007}. Essa iteração é demonstrada na Figura~\ref{fig:lexical}.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagens/lexical}
+	\caption{Iterações entre o analisador léxico e o \textit{parser}.}
+\end{figure}
+
 \section{Analise Sintática}
 \label{section:sintatica}
 
