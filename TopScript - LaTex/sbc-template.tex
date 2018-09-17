@@ -50,12 +50,13 @@ A tarefa principal do analisador léxico na primeira fase da compilação é de ler 
 	\centering
 	\includegraphics[width=.5\textwidth]{imagens/lexical}
 	\caption{Iterações entre o analisador léxico e o \textit{parser}.}
+	\label{fig:lexical}
 \end{figure}
 
 \section{Analise Sintática}
 \label{section:sintatica}
 
-O analisador sintático conhecido também como \textit{parser} obtêm \textit{strings} dos tokens que do analisador léxico, ele verifica se os nomes dos tokens podem ser gerados pela gramatica da linguagem fonte. É esperado que o \textit{parser} informe qualquer erro de sintaxe. Para programas bem formados, o \texit{parser} faz a construção da arvore sintática e passa para as próximas fases do compilador \cite{aho2007}.
+O analisador sintático conhecido também como \textit{parser} obtêm \textit{strings} dos tokens que do analisador léxico, ele verifica se os nomes dos tokens podem ser gerados pela gramatica da linguagem fonte. É esperado que o \textit{parser} informe qualquer erro de sintaxe. Para programas bem formados, o \textit{parser} faz a construção da arvore sintática e passa para as próximas fases do compilador \cite{aho2007}.
 
 \begin{figure}[htb]
 	\centering
@@ -67,10 +68,12 @@ Existem três tipos de analisadores de gramatica, são eles, universal, \textit{to
 
 Os métodos mais comuns para fazer a analise sintática são os analisadores \textit{top-down} e \textit{bottom-up}. Os seus nomes são bem sugestivos, o analisador top-down faz a construção da arvore sintática do topo para baixo, ou seja, começa a construção a partir da raiz e termina nas folhas, o analisador bottom-up começa essa construção nas folhas indo em direção até a raiz. Em ambos os casos as analises são feitas da esquerda pra direita um simbolo por vez.
 
-Os analisadores top-down e bottom-up trabalham somente com uma sub-classe de linguagens, porem as sub-classes LL e LR são expressivas o bastante para a descrição da grande parte das construções sintáticas em linguagens de programação modernas.
+Os analisadores top-down e bottom-up trabalham somente com uma sub-classe de linguagens, porem as sub-classes LL e LR são expressivas o bastante para a descrição da grande parte das construções sintáticas em linguagens de programação modernas \cite{aho2007}.
 
 \section{Analise Semântica}
 \label{section:semantica}
+
+Basicamente a fase de analise semântica é quando o compilador conecta as definições de variáveis a seus usos, faz a checagem de tipo de cada expressão e faz a tradução da arvore sintática em uma representação mais simples para a geração de código de maquina \cite{cooper2012}.
 
 \section{Documentação}
 \label{section:documentacao}
