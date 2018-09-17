@@ -55,6 +55,20 @@ A tarefa principal do analisador léxico na primeira fase da compilação é de ler 
 \section{Analise Sintática}
 \label{section:sintatica}
 
+O analisador sintático conhecido também como \textit{parser} obtêm \textit{strings} dos tokens que do analisador léxico, ele verifica se os nomes dos tokens podem ser gerados pela gramatica da linguagem fonte. É esperado que o \textit{parser} informe qualquer erro de sintaxe. Para programas bem formados, o \texit{parser} faz a construção da arvore sintática e passa para as próximas fases do compilador \cite{aho2007}.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=.5\textwidth]{imagens/parser}
+	\caption{Iterações entre o analisador léxico e o \textit{parser}.}
+\end{figure}
+
+Existem três tipos de analisadores de gramatica, são eles, universal, \textit{top-down} e \textit{bottom-up}. O analisador universal pode fazer a analisa de qualquer gramatica, porem esse método é ineficiente em produção.
+
+Os métodos mais comuns para fazer a analise sintática são os analisadores \textit{top-down} e \textit{bottom-up}. Os seus nomes são bem sugestivos, o analisador top-down faz a construção da arvore sintática do topo para baixo, ou seja, começa a construção a partir da raiz e termina nas folhas, o analisador bottom-up começa essa construção nas folhas indo em direção até a raiz. Em ambos os casos as analises são feitas da esquerda pra direita um simbolo por vez.
+
+Os analisadores top-down e bottom-up trabalham somente com uma sub-classe de linguagens, porem as sub-classes LL e LR são expressivas o bastante para a descrição da grande parte das construções sintáticas em linguagens de programação modernas.
+
 \section{Analise Semântica}
 \label{section:semantica}
 
