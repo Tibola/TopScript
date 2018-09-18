@@ -197,12 +197,33 @@ void opDif (): {}{< OP_DIF >}
 void retorno (): 
 {}
 {
-  < RETORNO > (idNome() | constante())
+  < RETORNO > (idNome() | constante() | operacaoMatematica())
 }
 
 void texto () :
 {}{
   (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
+}
+
+void operadorMatematico():
+{ }
+{
+	opSub() | opSum() | opDiv() | opMul() | opMod()
+}
+
+void dado() :
+{ }
+{
+	constante() | idNome()
+}
+
+void operacaoMatematica():
+{ }
+{
+	dado() operadorMatematico() dado()
+	| dado() operadorMatematico() operacaoMatematica()
+	| abreParenteses() operacaoMatematica() fechaParenteses()
+	| dado()
 }
 
 void string() :
@@ -253,7 +274,8 @@ void idNome() :
 void atribuicao() :
 {}
 {
-  atribui() constante() | atribui() executarFuncao() 
+  atribui() executarFuncao()
+  | atribui() operacaoMatematica()  
 }
 
 void declaraVariavel() :
@@ -272,7 +294,7 @@ void operadorLogico() :
 void expressaoLogica () :
 {}
 {
-  boolFalse() | boolTrue() | (idNome() | constante()) operadorLogico() (idNome() | constante())
+  boolFalse() | boolTrue() | (operacaoMatematica()) operadorLogico() (operacaoMatematica())
 }
 
 void condicional() :
@@ -312,7 +334,7 @@ void executarFuncao() :
 {
   idNome() 
   abreParenteses() 
-    ((idNome() | constante()) (virgula() (idNome() | constante()))* )? 
+    ((operacaoMatematica()) (virgula() (operacaoMatematica()))* )? 
   fechaParenteses()
 }
 
