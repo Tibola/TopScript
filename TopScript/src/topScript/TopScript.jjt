@@ -294,7 +294,7 @@ void operadorLogico() :
 void expressaoLogica () :
 {}
 {
-  boolFalse() | boolTrue() | (operacaoMatematica()) operadorLogico() (operacaoMatematica())
+  operacaoMatematica() | operacaoMatematica() operadorLogico() operacaoMatematica()
 }
 
 void condicional() :
