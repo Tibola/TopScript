@@ -139,7 +139,7 @@ TOKEN:
 SimpleNode Start() :
 {}
 {
-  top()
+  (top())?
   {
     return jjtThis;
   }
