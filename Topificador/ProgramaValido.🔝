@@ -1,15 +1,23 @@
 🔝
-    🔡 exString ✍️ "aooooooooo"
-    #️⃣ numeroInteiro, numeroInteiro2 ️️️️️️️️️️️️️✍️ 2
-    🚻 exBool ✍️ 👎, exBool2 ✍️ 👍
+  #️⃣ contador ✍️ 2, contoad ✍️ 1
+  🔡 comida1 ✍️ 'almondega', comida2 ✍️ 'batata'
+  🚻 mau ✍️ 👎, bom ✍️ 👍
+  ▶️ batata, fazerBatata ✍️ () 👉
+    batata()
+  👈
 
-    🤔 numeroInteiro ↔️ 2 👉
-        🤬("dois")
-    👈 🙄 👉
-        📢("nao dois")
-    👈
+  🤔 numeroInteiro 🤝 2 👉
+    print('dois')
+  👈 🙄 👉
+    batata()
+  👈
 
-    🔄 👍 👉
-        🤬(exString)
-    👈
+  🔄 👍 👉
+    print(exString)
+  👈
+
+  fazerBatata(211 + 2, numero)
+  #️⃣ contador ✍️ (2 + 2) + 2
+
+  contador2 ✍️ batata(2, 232)
 🔚

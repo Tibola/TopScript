@@ -139,7 +139,7 @@ TOKEN:
 SimpleNode Start() :
 {}
 {
-  (top())?
+  (top())
   {
     return jjtThis;
   }
@@ -197,7 +197,7 @@ void opDif (): {}{< OP_DIF >}
 void retorno (): 
 {}
 {
-  < RETORNO > (idNome() | constante() | operacaoMatematica())
+  < RETORNO > (expressao())
 }
 
 void texto () :
@@ -205,10 +205,10 @@ void texto () :
   (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
 }
 
-void operadorMatematico():
+void operador():
 { }
 {
-	opSub() | opSum() | opDiv() | opMul() | opMod()
+	opSub() | opSum() | opDiv() | opMul() | opMod() | opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()
 }
 
 void dado() :
@@ -217,13 +217,11 @@ void dado() :
 	constante() | idNome()
 }
 
-void operacaoMatematica():
+void expressao():
 { }
 {
-	dado() operadorMatematico() dado()
-	| dado() operadorMatematico() operacaoMatematica()
-	| abreParenteses() operacaoMatematica() fechaParenteses()
-	| dado()
+  dado() (operador() (dado() | expressao()))*
+| abreParenteses() expressao() fechaParenteses() (operador() expressao())?
 }
 
 void string() :
@@ -240,7 +238,7 @@ void string() :
 void funcao () :
 {}
 {
-  abreParenteses() declaraVariavel() fechaParenteses()
+  abreParenteses() (declaraVariaveis())? fechaParenteses()
   abreChaves()
     bloco()
   fechaChaves()
@@ -274,17 +272,16 @@ void idNome() :
 void atribuicao() :
 {}
 {
-  atribui() executarFuncao()
-  | atribui() operacaoMatematica()  
+  atribui() ( executarFuncao() | expressao() )
 }
 
-void declaraVariavel() :
+void declaraVariaveis() :
 {}
 {
   idTipo() idNome() (atribuicao())? 
   (virgula() idNome() (atribuicao())?)*
 }
-
+/*
 void operadorLogico() :
 {}
 {
@@ -294,17 +291,17 @@ void operadorLogico() :
 void expressaoLogica () :
 {}
 {
-  operacaoMatematica() | operacaoMatematica() operadorLogico() operacaoMatematica()
+  expressao() (operadorLogico() expressao())?
 }
-
+*/
 void condicional() :
 {}
 {
-  se() expressaoLogica() 
-  abreChaves() 
+  se() expressao() 
+  abreChaves()
     bloco()
   fechaChaves()
-  (senao() 
+  (senao()
     abreChaves() 
       bloco()
     fechaChaves()
@@ -314,7 +311,7 @@ void condicional() :
 void repeticaoPara () :
 {}
 {
-  para() declaraVariavel() separador() expressaoLogica() separador() bloco() 
+  para() declaraVariaveis() separador() expressao() separador() bloco() 
   abreChaves()
     bloco()
   fechaChaves()
@@ -323,7 +320,7 @@ void repeticaoPara () :
 void repeticaoEnquanto () :
 {}
 {
-  enquanto() expressaoLogica()
+  enquanto() expressao()
   abreChaves()
     bloco()
   fechaChaves()
@@ -334,7 +331,7 @@ void executarFuncao() :
 {
   idNome() 
   abreParenteses() 
-    ((operacaoMatematica()) (virgula() (operacaoMatematica()))* )? 
+    (expressao() (virgula() expressao())* )? 
   fechaParenteses()
 }
 
@@ -342,7 +339,7 @@ void top() :
 {}
 {
   inicioprog()
-  bloco()
+	bloco()
   fimprog()
 }
 
@@ -360,7 +357,7 @@ void bloco():
 {}
 {
   (
-    declaraVariavel()
+    declaraVariaveis()
     | condicional()
     | repeticaoPara()
     | repeticaoEnquanto()
