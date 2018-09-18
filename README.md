@@ -6,4 +6,4 @@ Projeto criado para o trabalho bimestral para a disciplina de Construção de Co
 * [Rafael Tibola](https://github.com/tibola)
 * [Felipe Divensi](https://github.com/divensi)
 * [Vinicios Wentz](https://github.com/whoisvinicios)
-* Eloi
+* [Elói Dreves Vieira](https://github.com/eDreves)
