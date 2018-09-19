@@ -75,6 +75,8 @@ Os analisadores top-down e bottom-up trabalham somente com uma sub-classe de lin
 
 Basicamente a fase de analise semântica é quando o compilador conecta as definições de variáveis a seus usos, faz a checagem de tipo de cada expressão e faz a tradução da arvore sintática em uma representação mais simples para a geração de código de maquina \cite{cooper2012}.
 
+A escolha do design do analisador semântico varia de compilador pra compilador. A fase de representação intermediaria pode ser uma linguagem real ou pode consistir em uma estrutura de dados internas que são compartilhadas por fases do compilador. Por exemplo. a linguagem de programação C ainda é frequentemente utilizada como forma intermediaria, por ser flexível e compila de forma eficiente para código de maquiná e ainda ter um compilador disponível para todos os sistemas operacionais \cite{aho2007}.
+
 \section{Documentação}
 \label{section:documentacao}
 
