@@ -197,7 +197,7 @@ void opDif (): {}{< OP_DIF >}
 void retorno (): 
 {}
 {
-  < RETORNO > (expressao())
+  < RETORNO > expressao()
 }
 
 void texto () :
@@ -214,7 +214,7 @@ void operador():
 void dado() :
 { }
 {
-	constante() | idNome()
+	constante() | executarFuncao() | idNome()
 }
 
 void expressao():
@@ -263,10 +263,16 @@ void idTipo() :
   | tipoTexto()
 }
 
+void palavrasReservadas() :
+{ }
+{
+  print()
+}
+
 void idNome() :
 {}
 {
-  letraMinuscula() (texto() | numero())*
+  (letraMinuscula() (texto() | numero())* ) | (palavrasReservadas() )
 }
 
 void atribuicao() :
