@@ -31,7 +31,7 @@ public class TopScript/*@bgen(jjtree)*/implements TopScriptTreeConstants/*@egen*
     }
     catch (Exception e)
     {
-      System.out.println("\nOops.");
+      System.out.println("\n\ud83d\ude22.");
       System.out.println(e.getMessage());
     }
   }
@@ -149,7 +149,7 @@ SimpleNode Start() :
 {/*@bgen(jjtree) Start */
   try {
 /*@egen*/
-  top()/*@bgen(jjtree)*/
+  (top())/*@bgen(jjtree)*/
   {
     jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;
@@ -718,7 +718,7 @@ void retorno ():
 {/*@bgen(jjtree) retorno */
   try {
 /*@egen*/
-  < RETORNO > (idNome() | constante())/*@bgen(jjtree)*/
+  < RETORNO > expressao()/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -750,6 +750,103 @@ void texto () :
   try {
 /*@egen*/
   (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+/*@bgen(jjtree)*/
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+}
+
+void operador():
+{/*@bgen(jjtree) operador */
+  SimpleNode jjtn000 = new SimpleNode(JJTOPERADOR);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/ }
+{/*@bgen(jjtree) operador */
+        try {
+/*@egen*/
+	opSub() | opSum() | opDiv() | opMul() | opMod() | opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()/*@bgen(jjtree)*/
+        } catch (Throwable jjte000) {
+          if (jjtc000) {
+            jjtree.clearNodeScope(jjtn000);
+            jjtc000 = false;
+          } else {
+            jjtree.popNode();
+          }
+          if (jjte000 instanceof RuntimeException) {
+            throw (RuntimeException)jjte000;
+          }
+          if (jjte000 instanceof ParseException) {
+            throw (ParseException)jjte000;
+          }
+          throw (Error)jjte000;
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
+/*@egen*/
+}
+
+void dado() :
+{/*@bgen(jjtree) dado */
+  SimpleNode jjtn000 = new SimpleNode(JJTDADO);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/ }
+{/*@bgen(jjtree) dado */
+        try {
+/*@egen*/
+	constante() | executarFuncao() | idNome()/*@bgen(jjtree)*/
+        } catch (Throwable jjte000) {
+          if (jjtc000) {
+            jjtree.clearNodeScope(jjtn000);
+            jjtc000 = false;
+          } else {
+            jjtree.popNode();
+          }
+          if (jjte000 instanceof RuntimeException) {
+            throw (RuntimeException)jjte000;
+          }
+          if (jjte000 instanceof ParseException) {
+            throw (ParseException)jjte000;
+          }
+          throw (Error)jjte000;
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
+/*@egen*/
+}
+
+void expressao():
+{/*@bgen(jjtree) expressao */
+  SimpleNode jjtn000 = new SimpleNode(JJTEXPRESSAO);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/ }
+{/*@bgen(jjtree) expressao */
+  try {
+/*@egen*/
+  dado() (operador() (dado() | expressao()))*
+| abreParenteses() expressao() fechaParenteses() (operador() expressao())?/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
   } finally {
     if (jjtc000) {
       jjtree.closeNodeScope(jjtn000, true);
@@ -795,7 +892,7 @@ void string() :
 /*@egen*/
 }
 
-void funcao () :
+void funcao() :
 {/*@bgen(jjtree) funcao */
   SimpleNode jjtn000 = new SimpleNode(JJTFUNCAO);
   boolean jjtc000 = true;
@@ -804,7 +901,7 @@ void funcao () :
 {/*@bgen(jjtree) funcao */
   try {
 /*@egen*/
-  abreParenteses() declaraVariavel() fechaParenteses()
+  abreParenteses() (declaraVariaveis())? fechaParenteses()
   abreChaves()
     bloco()
   fechaChaves()/*@bgen(jjtree)*/
@@ -901,6 +998,38 @@ void idTipo() :
 /*@egen*/
 }
 
+void palavrasReservadas() :
+{/*@bgen(jjtree) palavrasReservadas */
+  SimpleNode jjtn000 = new SimpleNode(JJTPALAVRASRESERVADAS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/ }
+{/*@bgen(jjtree) palavrasReservadas */
+  try {
+/*@egen*/
+  print()/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+}
+
 void idNome() :
 {/*@bgen(jjtree) idNome */
   SimpleNode jjtn000 = new SimpleNode(JJTIDNOME);
@@ -910,7 +1039,7 @@ void idNome() :
 {/*@bgen(jjtree) idNome */
   try {
 /*@egen*/
-  letraMinuscula() (texto() | numero())*/*@bgen(jjtree)*/
+  (letraMinuscula() (texto() | numero())* ) | (palavrasReservadas() )/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -942,7 +1071,7 @@ void atribuicao() :
 {/*@bgen(jjtree) atribuicao */
   try {
 /*@egen*/
-  atribui() constante()/*@bgen(jjtree)*/
+  atribui() ( executarFuncao() | expressao() )/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -965,13 +1094,13 @@ void atribuicao() :
 /*@egen*/
 }
 
-void declaraVariavel() :
-{/*@bgen(jjtree) declaraVariavel */
-  SimpleNode jjtn000 = new SimpleNode(JJTDECLARAVARIAVEL);
+void declaraVariaveis() :
+{/*@bgen(jjtree) declaraVariaveis */
+  SimpleNode jjtn000 = new SimpleNode(JJTDECLARAVARIAVEIS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
-{/*@bgen(jjtree) declaraVariavel */
+{/*@bgen(jjtree) declaraVariaveis */
   try {
 /*@egen*/
   idTipo() idNome() (atribuicao())? 
@@ -997,71 +1126,19 @@ void declaraVariavel() :
   }
 /*@egen*/
 }
-
+/*
 void operadorLogico() :
-{/*@bgen(jjtree) operadorLogico */
-  SimpleNode jjtn000 = new SimpleNode(JJTOPERADORLOGICO);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}
-{/*@bgen(jjtree) operadorLogico */
-  try {
-/*@egen*/
-  opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/
+{}
+{
+  opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()
 }
 
 void expressaoLogica () :
-{/*@bgen(jjtree) expressaoLogica */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXPRESSAOLOGICA);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}
-{/*@bgen(jjtree) expressaoLogica */
-  try {
-/*@egen*/
-  boolFalse() | boolTrue() | (idNome() | constante()) operadorLogico() (idNome() | constante())/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/
+{}
+{
+  expressao() (operadorLogico() expressao())?
 }
-
+*/
 void condicional() :
 {/*@bgen(jjtree) condicional */
   SimpleNode jjtn000 = new SimpleNode(JJTCONDICIONAL);
@@ -1071,11 +1148,11 @@ void condicional() :
 {/*@bgen(jjtree) condicional */
   try {
 /*@egen*/
-  se() expressaoLogica() 
-  abreChaves() 
+  se() expressao() 
+  abreChaves()
     bloco()
   fechaChaves()
-  (senao() 
+  (senao()
     abreChaves() 
       bloco()
     fechaChaves()
@@ -1111,7 +1188,7 @@ void repeticaoPara () :
 {/*@bgen(jjtree) repeticaoPara */
   try {
 /*@egen*/
-  para() declaraVariavel() separador() expressaoLogica() separador() bloco() 
+  para() declaraVariaveis() separador() expressao() separador() bloco() 
   abreChaves()
     bloco()
   fechaChaves()/*@bgen(jjtree)*/
@@ -1146,7 +1223,7 @@ void repeticaoEnquanto () :
 {/*@bgen(jjtree) repeticaoEnquanto */
   try {
 /*@egen*/
-  enquanto() expressaoLogica()
+  enquanto() expressao()
   abreChaves()
     bloco()
   fechaChaves()/*@bgen(jjtree)*/
@@ -1183,7 +1260,7 @@ void executarFuncao() :
 /*@egen*/
   idNome() 
   abreParenteses() 
-    ((idNome() | constante()) (virgula() (idNome() | constante()))* )? 
+    (expressao() (virgula() expressao())* )? 
   fechaParenteses()/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
@@ -1217,7 +1294,7 @@ void top() :
   try {
 /*@egen*/
   inicioprog()
-  bloco()
+	bloco()
   fimprog()/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
@@ -1287,7 +1364,7 @@ void bloco():
   try {
 /*@egen*/
   (
-    declaraVariavel()
+    declaraVariaveis()
     | condicional()
     | repeticaoPara()
     | repeticaoEnquanto()

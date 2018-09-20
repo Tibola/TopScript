@@ -46,22 +46,24 @@ public interface TopScriptTreeConstants
   public int JJTOPDIF = 40;
   public int JJTRETORNO = 41;
   public int JJTTEXTO = 42;
-  public int JJTSTRING = 43;
-  public int JJTFUNCAO = 44;
-  public int JJTCONSTANTE = 45;
-  public int JJTIDTIPO = 46;
-  public int JJTIDNOME = 47;
-  public int JJTATRIBUICAO = 48;
-  public int JJTDECLARAVARIAVEL = 49;
-  public int JJTOPERADORLOGICO = 50;
-  public int JJTEXPRESSAOLOGICA = 51;
-  public int JJTCONDICIONAL = 52;
-  public int JJTREPETICAOPARA = 53;
-  public int JJTREPETICAOENQUANTO = 54;
-  public int JJTEXECUTARFUNCAO = 55;
-  public int JJTTOP = 56;
-  public int JJTCREMENTOS = 57;
-  public int JJTBLOCO = 58;
+  public int JJTOPERADOR = 43;
+  public int JJTDADO = 44;
+  public int JJTEXPRESSAO = 45;
+  public int JJTSTRING = 46;
+  public int JJTFUNCAO = 47;
+  public int JJTCONSTANTE = 48;
+  public int JJTIDTIPO = 49;
+  public int JJTPALAVRASRESERVADAS = 50;
+  public int JJTIDNOME = 51;
+  public int JJTATRIBUICAO = 52;
+  public int JJTDECLARAVARIAVEIS = 53;
+  public int JJTCONDICIONAL = 54;
+  public int JJTREPETICAOPARA = 55;
+  public int JJTREPETICAOENQUANTO = 56;
+  public int JJTEXECUTARFUNCAO = 57;
+  public int JJTTOP = 58;
+  public int JJTCREMENTOS = 59;
+  public int JJTBLOCO = 60;
 
 
   public String[] jjtNodeName = {
@@ -108,15 +110,17 @@ public interface TopScriptTreeConstants
     "opDif",
     "retorno",
     "texto",
+    "operador",
+    "dado",
+    "expressao",
     "string",
     "funcao",
     "constante",
     "idTipo",
+    "palavrasReservadas",
     "idNome",
     "atribuicao",
-    "declaraVariavel",
-    "operadorLogico",
-    "expressaoLogica",
+    "declaraVariaveis",
     "condicional",
     "repeticaoPara",
     "repeticaoEnquanto",
@@ -126,4 +130,4 @@ public interface TopScriptTreeConstants
     "bloco",
   };
 }
-/* JavaCC - OriginalChecksum=fdea1a29e7603d518dc8206451f66b1c (do not edit this line) */
+/* JavaCC - OriginalChecksum=1035c16f62ed1432b34c06e0f53deac3 (do not edit this line) */

@@ -27,7 +27,7 @@ public class TopScript
     }
     catch (Exception e)
     {
-      System.out.println("\nOops.");
+      System.out.println("\n😢.");
       System.out.println(e.getMessage());
     }
   }
@@ -235,7 +235,7 @@ void string() :
   aspa()
 }
 
-void funcao () :
+void funcao() :
 {}
 {
   abreParenteses() (declaraVariaveis())? fechaParenteses()

@@ -11,7 +11,7 @@ package topScript;
  * You can modify this class to customize your error reporting
  * mechanisms so long as you retain the public fields.
  */
-public class ParseException extends Exception {
+public class ParseException2 extends Exception {
 
   /**
    * The version identifier for this Serializable class.
@@ -26,7 +26,7 @@ public class ParseException extends Exception {
    * a new object of this type with the fields "currentToken",
    * "expectedTokenSequences", and "tokenImage" set.
    */
-  public ParseException(Token currentTokenVal,
+  public ParseException2(Token currentTokenVal,
                         int[][] expectedTokenSequencesVal,
                         String[] tokenImageVal
                        )
@@ -47,12 +47,12 @@ public class ParseException extends Exception {
    * these constructors.
    */
 
-  public ParseException() {
+  public ParseException2() {
     super();
   }
 
   /** Constructor with message. */
-  public ParseException(String message) {
+  public ParseException2(String message) {
     super(message);
   }
 

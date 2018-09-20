@@ -3,7 +3,7 @@
 package topScript;
 
 /** Token Manager Error. */
-public class TokenMgrError extends Error
+public class TokenMgrError2 extends Error
 {
 
   /**
@@ -130,17 +130,17 @@ public class TokenMgrError extends Error
    */
 
   /** No arg constructor. */
-  public TokenMgrError() {
+  public TokenMgrError2() {
   }
 
   /** Constructor with message and reason. */
-  public TokenMgrError(String message, int reason) {
+  public TokenMgrError2(String message, int reason) {
     super(message);
     errorCode = reason;
   }
 
   /** Full Constructor. */
-  public TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar, int reason) {
+  public TokenMgrError2(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar, int reason) {
     this(LexicalError(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
   }
 }

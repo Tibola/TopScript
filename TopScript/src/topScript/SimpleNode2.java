@@ -3,7 +3,7 @@
 package topScript;
 
 public
-class SimpleNode implements Node {
+class SimpleNode2 implements Node {
 
   protected Node parent;
   protected Node[] children;
@@ -11,11 +11,11 @@ class SimpleNode implements Node {
   protected Object value;
   protected TopScript parser;
 
-  public SimpleNode(int i) {
+  public SimpleNode2(int i) {
     id = i;
   }
 
-  public SimpleNode(TopScript p, int i) {
+  public SimpleNode2(TopScript p, int i) {
     this(i);
     parser = p;
   }
@@ -67,7 +67,7 @@ class SimpleNode implements Node {
     System.out.println(toString(prefix));
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
-        SimpleNode n = (SimpleNode)children[i];
+        SimpleNode2 n = (SimpleNode2)children[i];
         if (n != null) {
           n.dump(prefix + "|--");
         }
