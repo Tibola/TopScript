@@ -2,11 +2,14 @@
 
 Projeto criado para o trabalho bimestral para a disciplina de Construção de Compiladores, Ciência da Computação - UTFPR 2018/2.
 
+```
 .
-├── TopScript <sub><sup>Principal</sup></sub>
-├── TopScript - LaTex <sub><sup>Relatório sobre a entrega do dia 20/09/2018</sup></sub>
-├── TopScripter <sub><sup>IDE de desenvolvimento TopScript</sup></sub>
-└── Topificador <sub><sup>Conversor de palavras chave em emoji, pq né</sup></sub>
+├── TopScript (Principal)
+├── TopScript - LaTex (Relatório sobre a entrega do dia 20/09/2018)
+├── TopScripter (IDE de desenvolvimento TopScript)
+└── Topificador (Conversor de palavras chave em emoji, pq né)
+
+```
 
 ## Para rodar na linha de comando
 ```
