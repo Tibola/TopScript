@@ -26,15 +26,6 @@ body {
     url(/fonts/mononoki-Regular.ttf);
 }
 
-@font-face {
-  font-family: 'Operator Mono';
-  font-style: normal;
-  font-weight: 400;
-  src:
-    local('Operator Mono'),
-    url(/fonts/OperatorMono/OperatorMono-Book.otf);
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
