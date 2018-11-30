@@ -4,11 +4,10 @@
 options
 {
   static = true;
-  LOOKAHEAD = 10;
 }
 
 PARSER_BEGIN(TopScript)
-package topScript;
+package topscript;
 
 public class TopScript
 {
@@ -123,18 +122,35 @@ TOKEN:
 {
   < LETRA_MAIUSCULA : [ "A"-"Z" ] >
 | < LETRA_MINUSCULA : [ "a"-"z" ] >
-| < #DIGITO : ([ "0"-"9" ])+ >
+| < DIGITO : ([ "0"-"9" ])+ >
 }
 
 // Sentencas 
+
+//TOKEN:
+//{
+//  < NUMERO          : 
+//    < DIGITO >
+//  | < DIGITO > "." < DIGITO >
+//  | < OP_SUB > < DIGITO >
+//  | < OP_SUB > < DIGITO > "." < DIGITO >>
+//}
+
+/*
+	acima é como NUMERO era definido,
+	abaixo a tentativa de fatorar os prefixo comuns
+	mas ta dando um aviso de vazio (n sei como remove)
+*/
+
 TOKEN:
 {
   < NUMERO          : 
-    < DIGITO >
-  | < DIGITO > "." < DIGITO >
-  | < OP_SUB > < DIGITO >
-  | < OP_SUB > < DIGITO > "." < DIGITO >>
+    < DIGITO > ("." < DIGITO >)?
+  | < OP_SUB > ("." < DIGITO >)?
+  >
 }
+
+// FIM da tentativa de resolver o NUMERO com prefixos comuns
 
 SimpleNode Start() :
 {}
@@ -194,15 +210,66 @@ void opDif (): {}{< OP_DIF >}
 
 // Fim das Declaracoes Redundantes
 
+void idNome() :
+{}
+{
+  (letra() (texto() | numero())* )
+	//letra()
+}
+
+void executarFuncao() :
+{}
+{
+//  idNome() 
+  abreParenteses() 
+    (expressao() (virgula() expressao())* )? 
+  fechaParenteses()
+}
+
+//void crementos() :
+//{}
+//{
+//  (idNome() atribuicao())
+//  | (idNome() maisMais())
+//  | (idNome() menosMenos())
+//  | (maisMais() idNome())
+//  | (menosMenos() idNome())
+//}
+
+void dado() :
+{ }
+{
+	constante() | chamadorDeIdNome() 
+}
+
+void chamadorDeIdNome():
+{}
+{
+	idNome() (atribuicao() | executarFuncao())?
+}
+
 void retorno (): 
 {}
 {
   < RETORNO > expressao()
 }
 
+// OLD
+//void texto () :
+//{}{
+//  (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
+//}
+
+void letra ():
+{} {
+  < LETRA_MINUSCULA > | < LETRA_MAIUSCULA >
+}
+
+// ver isso ae
 void texto () :
-{}{
-  (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
+{}
+{
+  letra()(letra())*
 }
 
 void operador():
@@ -211,17 +278,11 @@ void operador():
 	opSub() | opSum() | opDiv() | opMul() | opMod() | opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()
 }
 
-void dado() :
-{ }
-{
-	constante() | executarFuncao() | idNome()
-}
-
 void expressao():
 { }
 {
-  dado() (operador() (dado() | expressao()))*
-| abreParenteses() expressao() fechaParenteses() (operador() expressao())?
+  dado() (operador() expressao())*
+  | abreParenteses() expressao() fechaParenteses() (operador() expressao())?
 }
 
 void string() :
@@ -238,7 +299,7 @@ void string() :
 void funcao() :
 {}
 {
-  abreParenteses() (declaraVariaveis())? fechaParenteses()
+  abreColchetes() (declaraVariaveis())? fechaColchetes()
   abreChaves()
     bloco()
   fechaChaves()
@@ -261,18 +322,6 @@ void idTipo() :
   | tipoNumero()
   | tipoFuncao()
   | tipoTexto()
-}
-
-void palavrasReservadas() :
-{ }
-{
-  print()
-}
-
-void idNome() :
-{}
-{
-  (letraMinuscula() (texto() | numero())* ) | (palavrasReservadas() )
 }
 
 void atribuicao() :
@@ -332,31 +381,12 @@ void repeticaoEnquanto () :
   fechaChaves()
 }
 
-void executarFuncao() :
-{}
-{
-  idNome() 
-  abreParenteses() 
-    (expressao() (virgula() expressao())* )? 
-  fechaParenteses()
-}
-
 void top() :
 {}
 {
   inicioprog()
 	bloco()
   fimprog()
-}
-
-void crementos() :
-{}
-{
-  (idNome() atribuicao())
-  | (idNome() maisMais())
-  | (idNome() menosMenos())
-  | (maisMais() idNome())
-  | (menosMenos() idNome())
 }
 
 void bloco():
@@ -367,8 +397,9 @@ void bloco():
     | condicional()
     | repeticaoPara()
     | repeticaoEnquanto()
-    | executarFuncao()
-    | crementos()
+//    | executarFuncao()
+//    | crementos()
+    | chamadorDeIdNome()
     | retorno()
   )*
 }
