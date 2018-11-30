@@ -1,0 +1,23 @@
+.SidebarItem {
+  display: flex;
+  list-style: none;
+}
+
+.SidebarItem button {
+  all: unset;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.SidebarItem button:hover {
+  background-color: #222;
+  color: #fff;
+}
+
+.SidebarItem--Open {
+  font-weight: bold;
+}
+
+.SidebarItem--InMemory {
+  float:right;
+}

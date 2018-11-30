@@ -1,0 +1,68 @@
+.Terminal {
+  background-color: #333;
+  color: #fff;
+  height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: desamostraTerminal 350ms ease;
+
+}
+
+.Terminal.Amostra {
+  height: 300px;
+
+  animation: amostraTerminal 350ms ease;
+}
+
+.Terminal .Stdout {
+  flex-grow: 1;
+  resize: none;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.Terminal .Stdin {
+  background-color: #444;
+  color: #fff;
+  border: 0;
+  font-family: 'Courier New', Courier, monospace;
+  height: 25px;
+  padding-left: 20px;
+}
+
+.Terminal .Stdin:focus {
+  outline: none;
+}
+
+.Terminal .History {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.Terminal--fechar {
+  all:unset;
+  position: absolute;
+  right: 0;
+  margin: 30px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  color: #777;
+  border-radius: 15px;
+  text-align: center;
+  transition: background-color 350ms ease;
+}
+.Terminal--fechar:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+@keyframes amostraTerminal {
+  from { height: 0px; }
+  to { height: 300px; }
+}
+
+@keyframes desamostraTerminal {
+  from { height: 300px; } 
+  to { height: 0px; }
+}

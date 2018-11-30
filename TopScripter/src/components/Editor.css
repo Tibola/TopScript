@@ -1,0 +1,27 @@
+
+.Main {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.react-tabs__tab-panel {
+  overflow-y: scroll;
+}
+
+.react-tabs__tab-list {
+  all: unset;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.react-tabs__tab {
+  all: unset;
+  padding: 5px 10px;
+}
+
+.react-tabs__tab--selected {
+  background-color: #666;
+}

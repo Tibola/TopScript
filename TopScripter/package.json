@@ -1,0 +1,89 @@
+{
+  "name": "teste-ide",
+  "version": "0.1.0",
+  "author": {
+    "name": "Coisas Ide"
+  },
+  "private": true,
+  "main": "public/electron.js",
+  "homepage": "./",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.8",
+    "@fortawesome/free-solid-svg-icons": "^5.5.0",
+    "@fortawesome/react-fontawesome": "^0.1.3",
+    "codemirror": "^5.42.0",
+    "electron-is-dev": "^0.3.0",
+    "i": "^0.3.6",
+    "npm": "^6.4.1",
+    "react": "^16.6.3",
+    "react-codemirror2": "^5.1.0",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1",
+    "react-tabs": "^2.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "electron": "^3.0.7",
+    "electron-builder": "^20.28.2",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-packager": "^12.1.1",
+    "electron-react-devtools": "^0.5.3",
+    "wait-on": "^3.0.1"
+  },
+  "scripts": {
+    "start": "concurrently \"BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "react-start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "preelectron-pack": "npm run build",
+    "package": "react-scripts build && electron-builder build --publish never",
+    "package-all": "react-scripts build && electron-builder build -mwl",
+    "package-linux": "react-scripts build && electron-builder build --linux",
+    "package-macos": "react-scripts build && electron-builder build --macos",
+    "package-win": "react-scripts build && electron-builder build --win --x64",
+    "package-win32": "react-scripts build && electron-builder build --win --ia32"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "build": {
+    "appId": "com.example.electron-cra",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "icons/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Development",
+      "icon": "icons/icon.icns"
+    },
+    "mac": {
+      "icon": "icons/icon.icns"
+    },
+    "nsis": {
+      "installerIcon": "icons/icon.ico",
+      "runAfterFinish": false,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": false
+    }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
