@@ -1,0 +1,33 @@
+🔝
+  🔡 nome ✍️ 'Joao'
+  #️⃣ i ✍️ 0.0
+  #️⃣ a, b, c
+  🚻 vdd ✍️ 👍, invdd ✍️ 👎
+
+  ▶️ olaMundo ✍️ [🔡 nome] 👉
+    comprimento ✍️ 'ola'
+    ↪️ cumprimento + nome
+  👈
+
+  olaMundo(nome)
+
+  // comentario
+
+  🔄 i < 5.0 👉
+    print('Numero' + i)
+    i ✍️ i + 1.0
+  👈
+
+  🔁 #️⃣ i ✍️ 0.0👌 i < 5.0👌 i ✍️ i + 1.0 👉
+    print('Numero' + i)
+    i ✍️ i + 1.0
+  👈
+
+  a ✍️ 2.0
+  b ✍️ 2.0
+  c ✍️ a + b - 3.0 * (3.0 - 2.0)
+
+  🤔 a > b 👉
+    print('ok')
+  👈
+🔚

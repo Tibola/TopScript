@@ -15,7 +15,13 @@ Projeto criado para o trabalho bimestral para a disciplina de Construção de Co
 ```
 cd TopScript
 javac -sourcepath src src/topscript/TopScript.java
-java -classpath src topscript/TopScript < ../Topificador/ProgramaValido.🔝
+java -classpath src topscript/TopScript < ../Topificador/exemplo.🔝
+```
+
+## Para topificar seu arquivo
+```
+cd Topificador
+python3 Topificador.py arquivo
 ```
 
 ## Para rodar a IDE

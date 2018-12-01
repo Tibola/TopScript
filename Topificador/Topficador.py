@@ -22,7 +22,7 @@ def topficador(codigo):
   codigo = re.sub(r"\bprotected\b", "🛡", codigo)
   codigo = re.sub(r"\bpublic\b", "🚌", codigo)
   codigo = re.sub(r"\bprivate\b", "🚧", codigo)
-  codigo = re.sub(r"\bprint\b", "🤬", codigo)
+  #codigo = re.sub(r"\bprint\b", "🤬", codigo)
   codigo = re.sub(r"\blength\b", "📏", codigo)
   codigo = re.sub(r"==", "🤝", codigo)
   codigo = re.sub(r"!=", "❗", codigo)
