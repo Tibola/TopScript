@@ -172,7 +172,7 @@ TOKEN:
 {
   < LETRA_MAIUSCULA : [ "A"-"Z" ] >
 | < LETRA_MINUSCULA : [ "a"-"z" ] >
-| < DIGITO : ([ "0"-"9" ])+ >
+| < #DIGITO : ([ "0"-"9" ])+ >
 }
 
 // Sentencas 
@@ -194,9 +194,9 @@ TOKEN:
 
 TOKEN:
 {
-  < NUMERO          :
+  < NUMERO :
     < DIGITO > ("." < DIGITO >)?
-  | < OP_SUB > ("." < DIGITO >)?
+  | < OP_SUB > < DIGITO > ("." < DIGITO >)?
   >
 }
 
@@ -309,7 +309,8 @@ void chamadorDeIdNome() :
 { RecoverySet g = First.chamadorDeIdNome; }
 {
   try {
-    idNome() (atribuicao() | executarFuncao())?  }
+    idNome() (atribuicao() | executarFuncao())?
+  }
   catch (ParseException e) {
     consumeUntil(g, e, "chamadorDeIdNome");
   }
@@ -513,7 +514,7 @@ void repeticaoEnquanto () :
 { RecoverySet g = First.repeticaoEnquanto; }
 {
   try {
-    enquanto() expressao()
+    enquanto() expressao() 
     abreChaves()
       bloco()
     fechaChaves()

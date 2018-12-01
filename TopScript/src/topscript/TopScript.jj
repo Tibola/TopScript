@@ -176,7 +176,7 @@ TOKEN:
 {
   < LETRA_MAIUSCULA : [ "A"-"Z" ] >
 | < LETRA_MINUSCULA : [ "a"-"z" ] >
-| < DIGITO : ([ "0"-"9" ])+ >
+| < #DIGITO : ([ "0"-"9" ])+ >
 }
 
 // Sentencas 
@@ -198,9 +198,9 @@ TOKEN:
 
 TOKEN:
 {
-  < NUMERO          :
+  < NUMERO :
     < DIGITO > ("." < DIGITO >)?
-  | < OP_SUB > ("." < DIGITO >)?
+  | < OP_SUB > < DIGITO > ("." < DIGITO >)?
   >
 }
 
@@ -908,7 +908,8 @@ void chamadorDeIdNome() :
   try {
 /*@egen*/
   try {
-    idNome() (atribuicao() | executarFuncao())?  }
+    idNome() (atribuicao() | executarFuncao())?
+  }
   catch (ParseException e) {
     consumeUntil(g, e, "chamadorDeIdNome");
   }/*@bgen(jjtree)*/
@@ -1462,7 +1463,7 @@ void repeticaoEnquanto () :
   try {
 /*@egen*/
   try {
-    enquanto() expressao()
+    enquanto() expressao() 
     abreChaves()
       bloco()
     fechaChaves()
