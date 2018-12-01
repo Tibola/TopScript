@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header'
 import Terminal from './components/Terminal';
 import Editor from './components/Editor';
+import Notificacao from './components/Notificacao';
 
 // installa os devtools do react no electron
 // require('electron-react-devtools').install()
@@ -19,7 +20,8 @@ class App extends Component {
       data: null
     },
     filesEditor: {},
-    mostraTerminal: false
+    mostraTerminal: false,
+    notificacao: null
   }
 
   constructor(props) {
@@ -27,6 +29,7 @@ class App extends Component {
 
     this.openFolder = this.openFolder.bind(this)
     this.onSelectItem = this.onSelectItem.bind(this)
+    this.setNotificacao = this.setNotificacao.bind(this)
   }
 
   openFolder = () => {
@@ -36,8 +39,14 @@ class App extends Component {
       if (folder !== undefined) {
         this.setState({folder: folder[0]})
         fs.readdir(folder[0], (err, dir) => {
-          this.setState({files: dir})
+          if (!err) {
+            this.setState({files: dir})
+          } else {
+            this.setNotificacao(err.message)
+          }
         });
+      } else {
+        this.setNotificacao('nenhuma pasta selecionada 😢')
       }
     });
   }
@@ -92,7 +101,7 @@ class App extends Component {
         // senão vai ter que abrir
         fs.readFile(filename, 'utf8', (err, data) => {
           if (err) {
-            alert(err);
+            this.setNotificacao(err.message)
           } else {
             this.setState({
               currentFile: name,
@@ -113,6 +122,8 @@ class App extends Component {
   editFile = (data) => {
     const { filesEditor, currentFile } = this.state
 
+    // let dataNoTab = data.replace(/\t/g, '  ')
+    
     this.setState({
       filesEditor: {
         ...filesEditor,
@@ -122,6 +133,29 @@ class App extends Component {
         }
       }
     })
+  }
+
+  onSaveAll = () => {
+    const { filesEditor } = this.state
+    console.log(filesEditor)
+
+    Object.values(filesEditor).forEach(file => {
+      const filename = `${this.state.folder}/${file.name}`
+
+      fs.writeFile(filename, file.data, {encoding: 'utf8'}, (err) => {
+        if(err) {
+          // alert(err)
+          this.setNotificacao(err.message)
+        } else {
+          console.log("The file was saved!")
+          this.setNotificacao('Arquivo salvo! 💾')
+        }
+      })
+    })
+  }
+
+  setNotificacao = notificacao => {
+    this.setState({notificacao})
   }
 
   render() {
@@ -138,11 +172,13 @@ class App extends Component {
           minimize={this.minimize}
           maximize={this.maximize}
           close={this.close}
+          onSaveAll={this.onSaveAll}
         />
         <div className="Body">
           <Sidebar files={this.state.files} openFiles={this.state.filesEditor} onSelectItem={this.onSelectItem} />
           <Editor file={this.state.filesEditor[this.state.currentFile]} editFile={this.editFile} />
         </div>
+        <Notificacao texto={this.state.notificacao} />
         <Terminal mostraTerminal={this.state.mostraTerminal} closeTerminal={this.openTerminal} />
       </div>
     );

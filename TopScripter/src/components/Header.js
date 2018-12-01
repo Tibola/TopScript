@@ -8,12 +8,12 @@ const Header = ({openFolder, devTools, openTerminal, minimize, maximize, close, 
       <button className="Minimize" onClick={minimize}>-</button>
       <button className="Maximize" onClick={maximize}>+</button> */}
     </div>
-    <button onClick={openFolder}><i className="fas fa-folder"></i></button>
-    <button onClick={devTools}><i className="fab fa-dev"></i></button>
-    <button onClick={openTerminal}><i className="fas fa-terminal"></i></button>
-    <button onClick={onBuild}><i className="fas fa-cogs"></i></button>
-    <button onClick={onRun}><i className="fas fa-play"></i></button>
-    <button onClick={onSaveAll}><i className="fas fa-play"></i></button>
+    <button title="Abrir diretório" onClick={openFolder}>📂</button>
+    <button title="Ferramentas de desenvolvedor" onClick={devTools}>🖥</button>
+    <button title="Terminal" onClick={openTerminal}>👩‍💻</button>
+    <button title="Build" onClick={onBuild}>⚙️</button>
+    <button title="Executar" onClick={onRun}>▶️</button>
+    <button title="Salvar todos" onClick={onSaveAll}>💾</button>
     {currentFolder}
   </div>
 )

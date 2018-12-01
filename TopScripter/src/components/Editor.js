@@ -17,7 +17,12 @@ export default ({file, editFile}) => {
           tabSize: 2,
           mode: 'python',
           theme: 'material',
-          lineNumbers: true
+          lineNumbers: true,
+          extraKeys: {
+            "Tab": function(cm) {
+              cm.replaceSelection("  ", "end")
+            }
+          }
         }}
         onBeforeChange={(editor, data, value) => {
           editFile(value)
