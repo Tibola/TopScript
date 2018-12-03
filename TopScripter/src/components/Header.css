@@ -27,3 +27,12 @@
   filter: drop-shadow(0, 0, 4px, rgba(0,0,0,0.5));
   cursor: pointer;
 }
+
+.Header_holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+}

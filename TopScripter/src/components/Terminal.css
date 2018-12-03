@@ -17,14 +17,14 @@
 .Terminal .Stdout {
   flex-grow: 1;
   resize: none;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'mononoki', 'Noto Color Emoji', 'Courier New', Courier, monospace;
 }
 
 .Terminal .Stdin {
   background-color: #444;
   color: #fff;
   border: 0;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'mononoki', 'Noto Color Emoji', 'Courier New', Courier, monospace;
   height: 25px;
   padding-left: 20px;
 }
@@ -36,6 +36,11 @@
 .Terminal .History {
   overflow-y: scroll;
   overflow-x: hidden;
+  font-family: 'mononoki', 'Noto Color Emoji', 'Courier New', Courier, monospace;
+}
+
+.Terminal .History pre {
+  font-family: 'mononoki', 'Noto Color Emoji', 'Courier New', Courier, monospace;
 }
 
 .Terminal--fechar {

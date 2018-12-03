@@ -1,43 +1,22 @@
 import React from 'react';
 import './Terminal.css';
 
-const exec = window.require('child_process').exec;
+var unescapeJs = require('unescape-js');
 
 class Terminal extends React.Component {
   constructor(props) {
     super(props)
 
-    this.theThing = this.theThing.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
+
   state = {
-    command: 'ls -alh /',
-    history: []
+    command: ''
   }
 
-  theThing() {
-    console.log(this.state)
-
-    exec(this.state.command, (code, stdout, stderr) => {
-      this.setState({
-        history: [
-          ...this.state.history,
-          {
-            command: this.state.command,
-            code: code, 
-            stdout: stdout, 
-            stderr: stderr
-          }
-        ],
-        command: ''
-      })
-      var element = document.getElementById("history");
-      element.scrollTop = element.scrollHeight;
-    });
-  }
-
-  handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
-      this.theThing()
+  handleKeyPress = event => {
+    if(event.key === 'Enter') {
+      this.props.executarComando(this.state.command)
     }
   }
 
@@ -48,10 +27,10 @@ class Terminal extends React.Component {
       <div className={`Terminal ${mostraTerminal && `Amostra`}`}>
         <div className="History" id="history">
           {
-            this.state.history.map((line, key) => 
+            this.props.history.map((line, key) => 
               <div className="row" key={key}>
                 <pre>{line.command}</pre>
-                <pre>{line.stdout}</pre>
+                <pre>{unescapeJs(line.stdout)}</pre>
                 <pre>{line.stderr}</pre>
               </div>
             )
@@ -63,7 +42,10 @@ class Terminal extends React.Component {
         value={this.state.command} 
         onKeyPress={this.handleKeyPress} 
         onChange={event => {this.setState({command:event.target.value})} }/>
-        {/* <button className="Terminal--fechar" onClick={closeTerminal}>🙅</button> */}
+        {
+          mostraTerminal &&
+          <button className="Terminal--fechar" onClick={closeTerminal}>🙅</button>
+        }
       </div>
     )
   }

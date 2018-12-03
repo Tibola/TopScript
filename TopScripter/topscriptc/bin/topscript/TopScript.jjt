@@ -1,0 +1,559 @@
+/**
+ * JJTree template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = true;
+}
+
+PARSER_BEGIN(TopScript)
+package topscript;
+
+import recovery.*;
+
+public class TopScript
+{
+  public static void main(String args [])
+  {
+    System.out.println("🔝");
+    System.out.println("Reading from standard input...");
+    System.out.println("Entra o programa top:");
+    new TopScript(System.in);
+    try
+    {
+      SimpleNode n = TopScript.Start();
+      n.dump("-- > ");
+
+      System.out.println("Vlw.");
+    }
+    catch (Exception e)
+    {
+      System.out.println("\n😢.");
+      System.out.println(e.getMessage());
+    }
+  }
+
+  static public String im(int x)
+  {
+    int k;
+    String s;
+    s = tokenImage[x];
+    k = s.lastIndexOf("\"");
+    try {
+      s = s.substring(1,k);
+    }
+   catch (StringIndexOutOfBoundsException e) {}
+   return s;
+  }
+
+  static Token lastError = null;
+  static boolean eof;    // variável que indica se EOF foi alcançado
+
+  // o método abaixo consome tokens até alcançar um que pertença ao conjunto
+  // de sincronização
+  static void consumeUntil(RecoverySet g, ParseException e, String met) throws ParseEOFException, ParseException
+  {
+  Token tok;
+  System.out.println();
+  System.out.println("*** " + met + " ***");
+  System.out.println("     Conjunto de sincronização: " + g);
+
+  if (g == null) throw e; // se o conjunto é null, propaga a exceção
+
+  tok = getToken(1); // pega token corrente
+  while ( ! eof ) { // se não chegou ao fim do arquivo
+    if ( g.contains(tok.kind)) {//achou um token no conjunto
+      System.out.println("     Encontrado token de sincronização: " + 
+                         im(tok.kind));
+      break;
+    }
+    System.out.println("     Ignorando o token: " + im(tok.kind));
+    getNextToken();     // pega próximo token
+      tok = getToken(1);
+    if (tok.kind == EOF && ! g.contains(EOF) ) // fim da entrada?
+        eof = true;
+  }
+    if ( tok != lastError) {
+    System.out.println(e.getMessage());
+    lastError = tok;
+  }
+  if ( eof )
+    throw new ParseEOFException("Encontrei EOF onde não deveria.");
+  }
+}
+
+PARSER_END(TopScript)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| < "//" (~[ "\n", "\r" ])*
+    (
+      "\n"
+    | "\r"
+    | "\r\n"
+    ) >
+| < "/*" (~[ "*" ])* "*"
+    (
+      ~[ "/" ] (~[ "*" ])* "*"
+    )*
+    "/" >
+}
+
+// Palavras reservadas
+TOKEN :
+{
+  < INICIOPROG      : "🔝"  >
+| < FIMPROG         : "🔚"  >
+| < SE              : "🤔"  >
+| < SENAO           : "🙄"  >
+| < PARA            : "🔁"  >
+| < ENQUANTO        : "🔄"  >
+| < PRINT           : "🤬"  >
+| < RETORNO         : "↪️"  >
+| < ATRIBUI         : "✍️"  >
+| < MAIS_MAIS       : "⏫"  >
+| < MENOS_MENOS     : "⏬"  >
+| < BOOL_TRUE       : "👍"  >
+| < BOOL_FALSE      : "👎"  >
+}
+
+// Delimitadores
+TOKEN :
+{
+  < ABRE_CHAVES     : "👉"  >
+| < FECHA_CHAVES    : "👈"  >
+| < SEPARADOR       : "👌"  >
+| < ABRE_PARENTESES : "("   >
+| < FECHA_PARENTESES: ")"   >
+| < ABRE_COLCHETES  : "["   >
+| < FECHA_COLCHETES : "]"   >
+| < VIRGULA         : ","   >
+| < PONTO           : "."   >
+| < ASPA            : "'"   >
+
+}
+
+// Tipos de Dados
+TOKEN :
+{
+  < TIPO_NUMERO     : "#️⃣"  >
+| < TIPO_TEXTO      : "🔡"  >
+| < TIPO_BOOL       : "🚻"  >
+| < TIPO_FUNCAO     : "▶️"   >
+}
+
+// Operadores Matematicos
+TOKEN: 
+{
+  < OP_SUM          : "+" >
+| < OP_SUB          : "-" >
+| < OP_MUL          : "*" >
+| < OP_DIV          : "/" >
+| < OP_MOD          : "%" >
+}
+
+// Operadores Lógicos
+TOKEN:
+{
+  < OP_AND          : "🅰️" >
+| < OP_OR           : "🅾️" >
+| < OP_GT           : ">" >
+| < OP_LT           : "<" >
+| < OP_EQ           : "🤝" >
+| < OP_DIF          : "❗" >
+}
+
+// Caracteres
+TOKEN:
+{
+  < LETRA_MAIUSCULA : [ "A"-"Z" ] >
+| < LETRA_MINUSCULA : [ "a"-"z" ] >
+| < #DIGITO : ([ "0"-"9" ])+ >
+}
+
+// Sentencas 
+
+//TOKEN:
+//{
+//  < NUMERO          : 
+//    < DIGITO >
+//  | < DIGITO > "." < DIGITO >
+//  | < OP_SUB > < DIGITO >
+//  | < OP_SUB > < DIGITO > "." < DIGITO >>
+//}
+
+/*
+  acima é como NUMERO era definido,
+  abaixo a tentativa de fatorar os prefixo comuns
+  mas ta dando um aviso de vazio (n sei como remove)
+*/
+
+TOKEN:
+{
+  < NUMERO :
+    < DIGITO > ("." < DIGITO >)?
+  | < OP_SUB > < DIGITO > ("." < DIGITO >)?
+  >
+}
+
+// FIM da tentativa de resolver o NUMERO com prefixos comuns
+
+SimpleNode Start() :
+{}
+{
+  (top())
+  {
+    return jjtThis;
+  }
+}
+
+/**
+ * HC SVNT DRACONES
+ * Não terminais
+ */
+
+void letraMinuscula () : {}{< LETRA_MINUSCULA >}
+void letraMaiuscula () : {}{< LETRA_MAIUSCULA >}
+void numero () : {}{< NUMERO >}
+
+void inicioprog () : {}{< INICIOPROG >}
+void fimprog () : {}{< FIMPROG >}
+void se () : {}{< SE >}
+void senao () : {}{< SENAO >}
+void para () : {}{< PARA >}
+void enquanto () : {}{< ENQUANTO >}
+void print () : {}{< PRINT >}
+void atribui () : {}{< ATRIBUI >}
+void maisMais () : {}{< MAIS_MAIS >}
+void menosMenos () : {}{< MENOS_MENOS >}
+void boolTrue () : {}{< BOOL_TRUE >}
+void boolFalse () : {}{< BOOL_FALSE >}
+void abreChaves () : {}{< ABRE_CHAVES >}
+void fechaChaves () : {}{< FECHA_CHAVES >}
+void separador () : {}{< SEPARADOR >}
+void abreParenteses () : {}{< ABRE_PARENTESES >}
+void fechaParenteses () : {}{< FECHA_PARENTESES >}
+void abreColchetes () : {}{< ABRE_COLCHETES >}
+void fechaColchetes () : {}{< FECHA_COLCHETES >}
+void virgula () : {}{< VIRGULA >}
+void ponto () : {}{< PONTO >}
+void aspa () : {}{< ASPA >}
+void tipoNumero () : {}{< TIPO_NUMERO >}
+void tipoTexto () : {}{< TIPO_TEXTO >}
+void tipoBool () : {}{< TIPO_BOOL >}
+void tipoFuncao () : {}{< TIPO_FUNCAO >}
+void opSum () : {}{< OP_SUM >}
+void opSub () : {}{< OP_SUB >}
+void opMul () : {}{< OP_MUL >}
+void opDiv () : {}{< OP_DIV >}
+void opMod () : {}{< OP_MOD >}
+void opAnd () : {}{< OP_AND >}
+void opOr () : {}{< OP_OR >}
+void opGt () : {}{< OP_GT >}
+void opLt () : {}{< OP_LT >}
+void opEq () : {}{< OP_EQ >}
+void opDif () : {}{< OP_DIF >}
+
+// Fim das Declaracoes Redundantes
+
+void idNome() :
+{ RecoverySet g = First.idNome; }
+{
+  try {
+    (letra() (texto() | numero())* )
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "idNome");
+  }
+}
+
+void executarFuncao() :
+{ RecoverySet g = First.executarFuncao; }
+{
+  try {
+    abreParenteses()
+      (expressao() (virgula() expressao())* )?
+    fechaParenteses()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "executarFuncao");
+  }
+}
+
+//void crementos() :
+//{}
+//{
+//  (idNome() atribuicao())
+//  | (idNome() maisMais())
+//  | (idNome() menosMenos())
+//  | (maisMais() idNome())
+//  | (menosMenos() idNome())
+//}
+
+void dado() :
+{ RecoverySet g = First.dado; }
+{
+  try {
+    constante() | chamadorDeIdNome()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "dado");
+  }
+}
+
+void chamadorDeIdNome() :
+{ RecoverySet g = First.chamadorDeIdNome; }
+{
+  try {
+    idNome() (atribuicao() | executarFuncao())?
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "chamadorDeIdNome");
+  }
+}
+
+void retorno () :
+{ RecoverySet g = First.retorno; }
+{
+  try {
+    < RETORNO > expressao()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "retorno");
+  }
+}
+
+// OLD
+//void texto () :
+//{}{
+//  (< LETRA_MAIUSCULA > | < LETRA_MINUSCULA > )+
+//}
+
+void letra () :
+{ RecoverySet g = First.letra; }
+{
+  try {
+    < LETRA_MINUSCULA > | < LETRA_MAIUSCULA >
+  }
+  catch (ParseException e) {
+    try {
+		consumeUntil(g, e, "letra");
+	} catch (ParseEOFException e1) {
+		e1.printStackTrace();
+	}
+  }
+}
+
+// ver isso ae
+void texto () :
+{ RecoverySet g = First.texto; }
+{
+  try {
+    letra()(letra())*
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "texto");
+  }
+}
+
+void operador() :
+{ RecoverySet g = First.operador; }
+{
+  try {
+    opSub() | opSum() | opDiv() | opMul() | opMod() | opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "operador");
+  }
+}
+
+void expressao() :
+{ RecoverySet g = First.expressao; }
+{
+  try {
+    dado() (operador() expressao())*
+    | abreParenteses() expressao() fechaParenteses() (operador() expressao())?
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "expressao");
+  }
+}
+
+void string() :
+{ RecoverySet g = First.string; }
+{
+  try {
+    aspa()
+      (
+        texto() |
+        numero()
+      )*
+    aspa()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "string");
+  }
+}
+
+void funcao() :
+{ RecoverySet g = First.funcao; }
+{
+  try {
+    abreColchetes() (declaraVariaveis())? fechaColchetes()
+    abreChaves()
+      bloco()
+    fechaChaves()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "funcao");
+  }
+}
+
+void constante() :
+{ RecoverySet g = First.constante; }
+{
+  try {
+    numero()
+    | string()
+    | boolFalse()
+    | boolTrue()
+    | funcao()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "constante");
+  }
+}
+
+void idTipo() :
+{ RecoverySet g = First.idTipo; }
+{
+  try {
+    tipoBool()
+    | tipoNumero()
+    | tipoFuncao()
+    | tipoTexto()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "idTipo");
+  }
+}
+
+void atribuicao() :
+{ RecoverySet g = First.atribuicao; }
+{
+  try {
+    atribui() ( executarFuncao() | expressao() )
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "atribuicao");
+  }
+}
+
+void declaraVariaveis() :
+{ RecoverySet g = First.declaraVariaveis; }
+{
+  try {
+    idTipo() idNome() (atribuicao())? 
+    (virgula() idNome() (atribuicao())?)*
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "declaraVariaveis");
+  }
+}
+/*
+void operadorLogico() :
+{}
+{
+  opAnd() | opOr() | opDif() | opEq() | opLt() | opGt()
+}
+
+void expressaoLogica () :
+{}
+{
+  expressao() (operadorLogico() expressao())?
+}
+*/
+void condicional() :
+{ RecoverySet g = First.condicional; }
+{
+  try {
+    se() expressao()
+    abreChaves()
+      bloco()
+    fechaChaves()
+    (senao()
+      abreChaves()
+        bloco()
+      fechaChaves()
+    )?
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "condicional");
+  }
+}
+
+void repeticaoPara () :
+{ RecoverySet g = First.repeticaoPara; }
+{
+  try {
+    para() declaraVariaveis() separador() expressao() separador() bloco() 
+    abreChaves()
+      bloco()
+    fechaChaves()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "repeticaoPara");
+  }
+}
+
+void repeticaoEnquanto () :
+{ RecoverySet g = First.repeticaoEnquanto; }
+{
+  try {
+    enquanto() expressao() 
+    abreChaves()
+      bloco()
+    fechaChaves()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "repeticaoEnquanto");
+  }
+}
+
+void top() :
+{ RecoverySet g = First.top; }
+{
+  try {
+    inicioprog()
+    bloco()
+    fimprog()
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "top");
+  }
+}
+
+void bloco() :
+{ RecoverySet g = First.bloco; }
+{
+  try {
+    (
+      declaraVariaveis()
+      | condicional()
+      | repeticaoPara()
+      | repeticaoEnquanto()
+  // temos que ver isso aí
+  //    | executarFuncao()
+  //    | crementos()
+      | chamadorDeIdNome()
+      | retorno()
+    )*
+  }
+  catch (ParseException e) {
+    consumeUntil(g, e, "bloco");
+  }
+}

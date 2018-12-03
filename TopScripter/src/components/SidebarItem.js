@@ -6,7 +6,7 @@ const SidebarItem = ({name, onSelectItem, openFile}) => (
   <li className={`SidebarItem ${(openFile ? 'SidebarItem--Open': '')}`}>
     <button onClick={() => onSelectItem(name)}>
       {name}
-      <div className="SidebarItem--InMemory">{`${(openFile ? '⭐️': '')}`}</div>
+      <div className="SidebarItem--InMemory">{`${(openFile ? '•': '')}`}</div>
     </button>
   </li>
 )

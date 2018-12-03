@@ -2,6 +2,8 @@
 
 # dependencies
 /TopScripter/node_modules
+/TopScripter/package-lock.json
+
 /TopScripter/.pnp
 /TopScripter/.pnp.js
 

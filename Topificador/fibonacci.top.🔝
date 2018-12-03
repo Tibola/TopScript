@@ -1,20 +1,20 @@
 🔝
-  ▶️ fibador ✍️ (#️⃣ n) 👉
+  ▶️ fibador ✍️ [#️⃣ n] 👉
     🤔 n < 0 👉
       ↪️ n
     👈 🙄 👉
       ↪️ (fibador(n - 1) + fibador(n - 2))
-    👈
+    👈    
   👈
 
   num termos ✍️ 10
 
   🤔 termos < 0 👉
-    🤬('por favor escolha um inteiro positivo')
+    print('por favor escolha um inteiro positivo')
   👈 🙄 👉
-    🤬('fibada')
+    print('fibada')
     🔁 #️⃣ i 👌 i < termos 👌 👉
-      🤬(fibador(i))
+      print(fibador(i))
     👈
   👈
 🔚

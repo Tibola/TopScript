@@ -1,11 +1,16 @@
 .SidebarItem {
+  box-sizing: border-box;
+  background-color: rgba(0,0,0,.1);
   display: flex;
   list-style: none;
+  flex-direction: column;
+  transition: border .4s;
 }
 
 .SidebarItem button {
   all: unset;
-  flex-grow: 1;
+  padding: 8px 12px;
+  /* flex-grow: 1; */
   cursor: pointer;
 }
 
@@ -15,7 +20,8 @@
 }
 
 .SidebarItem--Open {
-  font-weight: bold;
+  /* font-weight: bold; */
+  border-left: 3px solid rgb(30, 127, 206);
 }
 
 .SidebarItem--InMemory {

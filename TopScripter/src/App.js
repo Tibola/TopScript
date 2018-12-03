@@ -5,23 +5,28 @@ import Header from './components/Header'
 import Terminal from './components/Terminal';
 import Editor from './components/Editor';
 import Notificacao from './components/Notificacao';
+import { tussi } from './utils/destopificador';
 
 // installa os devtools do react no electron
 // require('electron-react-devtools').install()
-const {dialog, BrowserWindow} = window.require('electron').remote;
+const {dialog, BrowserWindow, globalShortcut} = window.require('electron').remote;
 const fs = window.require('fs');
+const exec = window.require('child_process').exec;
 
 class App extends Component {
   state = {
     folder: null,
     files: [],
-    currentFile: {
-      name: null,
-      data: null
-    },
+    currentFile: null,
     filesEditor: {},
     mostraTerminal: false,
-    notificacao: null
+    notificacao: null,
+    command: '',
+    history: [],
+    posicaoCagada: {
+      lin: null,
+      col: null
+    }
   }
 
   constructor(props) {
@@ -30,6 +35,7 @@ class App extends Component {
     this.openFolder = this.openFolder.bind(this)
     this.onSelectItem = this.onSelectItem.bind(this)
     this.setNotificacao = this.setNotificacao.bind(this)
+    this.executarComando = this.executarComando.bind(this)
   }
 
   openFolder = () => {
@@ -71,7 +77,13 @@ class App extends Component {
   }
 
   onBuild = () => {
-    alert("Nao implementado HU3")
+    this.setState({mostraTerminal: true})
+    // console.log(this.state)
+    const filename = `${this.state.folder}/${this.state.currentFile}`;
+
+    const comando = `java -classpath topscriptc/bin topscript/TopScript < ${filename}`
+    // console.log(comando)
+    this.executarComando(comando)
   }
 
   onBuildAndRun = () => {
@@ -79,7 +91,23 @@ class App extends Component {
   }
 
   onRun = () => {
-    alert("Nao implementado HU3")
+    let data = tussi(this.state.filesEditor[this.state.currentFile].data);
+    const filename = `${this.state.folder}/${this.state.currentFile}.js`;
+
+    fs.writeFile(filename, data, {encoding: 'utf8'}, (err) => {
+      if(err) {
+        // alert(err)
+        this.setNotificacao(err.message)
+      } else {
+        // console.log("The file was saved!")
+        this.setNotificacao('Arquivo Transpilado para JS')
+
+        this.setState({mostraTerminal: true})
+    
+        this.executarComando(`node ${filename}`)
+      }
+    })
+    // alert("Nao implementado HU3")
   }
 
   devTools = () => {
@@ -92,7 +120,7 @@ class App extends Component {
 
     // se for maior do que 500 KB, foda-se
     if (stats.size > 500000) {
-      alert(`Carai, essa porra tem ${stats.size} bytes, não vo le essa merda não`)
+      this.setNotificacao(`Carai 🤬😡😤, essa porra 🤢🤮 tem 👉👉 ${stats.size} 👈👈 bytes 👎👎, não ❌ vo le 📝👨‍💻 essa merda 💩💩 não 🚫`)
     } else {
       // se ele já existe, abrir da memória
       if (this.state.filesEditor[name]) {
@@ -137,7 +165,7 @@ class App extends Component {
 
   onSaveAll = () => {
     const { filesEditor } = this.state
-    console.log(filesEditor)
+    // console.log(filesEditor)
 
     Object.values(filesEditor).forEach(file => {
       const filename = `${this.state.folder}/${file.name}`
@@ -147,15 +175,69 @@ class App extends Component {
           // alert(err)
           this.setNotificacao(err.message)
         } else {
-          console.log("The file was saved!")
-          this.setNotificacao('Arquivo salvo! 💾')
+          // console.log("The file was saved!")
+          this.setNotificacao('Arquivo salvo! 👼')
         }
       })
     })
   }
 
+  executarComando(comando) {
+    exec(comando, {encoding: 'utf8'}, (code, stdout, stderr) => {
+      this.setState({
+        history: [
+          ...this.state.history,
+          {
+            command: comando,
+            code: code,
+            stdout: stdout,
+            stderr: stderr
+          }
+        ],
+        command: ''
+      })
+
+      let linha = stdout.split("\n").filter(linha => 
+        (linha.startsWith('Encontrado')))
+
+      if (!linha.length) {
+        linha = stderr.split("\n").filter(linha => 
+          (linha.startsWith('Erro')))
+      }
+
+      if (linha.length) {
+        let lin = linha[0].match("linha (.*),")
+        let col = linha[0].match("coluna (.*).")
+        if (lin.length && col.length) {
+          this.setState({
+            posicaoCagada: { lin: parseInt(lin[1]), col: parseInt(col[1]) }
+          })
+        }
+      } else {
+        this.setState({
+          posicaoCagada: { lin: null, col: null }
+        })
+      }
+
+      var element = document.getElementById("history")
+      element.scrollTop = element.scrollHeight
+    })
+  }
+
   setNotificacao = notificacao => {
     this.setState({notificacao})
+    setTimeout(() => this.setState({notificacao: ''}), 3000)
+  }
+
+  componentDidMount() {
+    globalShortcut.register('CommandOrControl+S', () => {
+      this.onSaveAll()
+    })
+
+    globalShortcut.register('F5', () => {
+      this.onSaveAll()
+      this.onBuild()
+    })
   }
 
   render() {
@@ -175,11 +257,21 @@ class App extends Component {
           onSaveAll={this.onSaveAll}
         />
         <div className="Body">
-          <Sidebar files={this.state.files} openFiles={this.state.filesEditor} onSelectItem={this.onSelectItem} />
-          <Editor file={this.state.filesEditor[this.state.currentFile]} editFile={this.editFile} />
+          <Sidebar 
+            files={this.state.files} 
+            openFiles={this.state.filesEditor} 
+            onSelectItem={this.onSelectItem} />
+          <Editor 
+            file={this.state.filesEditor[this.state.currentFile]} 
+            editFile={this.editFile} 
+            posicaoCagada={this.state.posicaoCagada} />
         </div>
         <Notificacao texto={this.state.notificacao} />
-        <Terminal mostraTerminal={this.state.mostraTerminal} closeTerminal={this.openTerminal} />
+        <Terminal 
+          mostraTerminal={this.state.mostraTerminal} 
+          closeTerminal={this.openTerminal} 
+          executarComando={this.executarComando} 
+          history={this.state.history} />
       </div>
     );
   }
