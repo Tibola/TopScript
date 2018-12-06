@@ -2,7 +2,7 @@ package recovery;
 
 import topscript.*;
 
-public class First { //implementa os conjuntos follow p/ alguns n.terminais
+public class First {
 
     static public final RecoverySet top = new RecoverySet();
     static public final RecoverySet idNome = new RecoverySet();

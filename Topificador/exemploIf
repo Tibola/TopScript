@@ -1,0 +1,9 @@
+top
+    int a = 4
+
+    if a < 5 {
+        print('menor que cinco')
+    } else {
+        print('maior ou igual a cinco')
+    }
+end

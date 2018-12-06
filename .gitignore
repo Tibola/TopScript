@@ -27,4 +27,4 @@ yarn-error.log*
 
 # javarias
 /TopScript/bin
-*.class
+/TopScript/*.class
