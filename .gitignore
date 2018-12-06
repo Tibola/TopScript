@@ -28,3 +28,5 @@ yarn-error.log*
 # javarias
 /TopScript/bin
 /TopScript/*.class
+
+.DS_Store
